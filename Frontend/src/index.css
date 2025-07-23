@@ -1,3 +1,9 @@
+/* ===== Tailwind Base ===== */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Global Variables & Typography ===== */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -64,5 +70,59 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+/* ===== Tailwind Custom Utility Classes ===== */
+.input {
+  @apply w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-400;
+}
+
+.btn-purple {
+  @apply bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700;
+}
+
+.btn-light {
+  @apply bg-gray-200 text-black px-6 py-2 rounded hover:bg-gray-300;
+}
+
+/* ===== App-specific Styles ===== */
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+/* ===== Animations ===== */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
