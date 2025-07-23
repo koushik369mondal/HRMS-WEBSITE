@@ -1,0 +1,607 @@
+/* src/index.css */
+
+/* Import Bootstrap Icons */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"); /* Correct CDN for Bootstrap Icons */
+
+/* Custom Font (Inter, if not already globally defined) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh; /* Ensure body takes full viewport height */
+  overflow: hidden; /* Prevent overall body scrolling */
+  background-color: var(--light-gray); /* Match the main background color */
+}
+
+/* --- Custom Colors (Strictly based on Horilla dashboard image) --- */
+:root {
+  --custom-sidebar-bg: #6A7ADA; /* Dark purple/blue for leftmost sidebar and send button */
+  --custom-secondary-purple: #582BE8; /* Medium purple/blue for active chat header, sender bubbles */
+  --light-gray: #F0F2F5; /* Light gray for main background, requests section, receiver bubbles */
+  --dark-gray-text: #333333; /* General text color, used for darker elements */
+  --requests-bg: #E0E6F7; /* Light purple for requests section background */
+  --chat-window-bg: #FFFFFF; /* White for the main chat area background */
+  --custom-chat-menu-bg: #FFFFFF; /* IMPORTANT: Chat menu background changed to WHITE */
+  --bubble-mine-bg: var(--custom-secondary-purple); /* Sender's bubble color */
+  --bubble-mine-text: #FFFFFF; /* Sender's bubble text color */
+  --bubble-other-bg: var(--light-gray); /* Receiver's bubble color */
+  --bubble-other-text: var(--dark-gray-text); /* Receiver's bubble text color */
+  --red-hover: #dc3545; /* Bootstrap danger color for hover */
+}
+
+/* --- General Layout --- */
+.h-100 {
+  height: 100%;
+}
+
+/* Main container for the 3-column layout */
+.container-fluid > .row {
+  height: 100%;
+}
+
+/* --- Empty Main Sidebar (Leftmost) --- */
+.custom-empty-sidebar-bg {
+  background-color: var(--custom-sidebar-bg);
+  transition: width 0.3s ease-in-out; /* Smooth transition for expand/collapse */
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.expanded-sidebar {
+  width: 150px; /* Increased width for the empty sidebar, as per image reference */
+}
+
+.collapsed-sidebar {
+  width: 50px; /* Collapsed width for the empty sidebar */
+}
+
+.toggle-sidebar-btn {
+  color: white;
+  transition: transform 0.3s ease-in-out;
+}
+.toggle-sidebar-btn i {
+  font-size: 1.5rem !important; /* Larger icon, force size */
+  color: white !important; /* Force white color for sidebar toggle */
+}
+
+/* --- Chat Menu (Middle Column) --- */
+.custom-chat-menu-bg {
+  background-color: var(--custom-chat-menu-bg); /* Background for chat list column - Now WHITE */
+  color: var(--dark-gray-text); /* Default text color for this section to be visible on white */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
+  z-index: 2; /* Ensure it's above the main content on small screens if needed */
+
+  /* Ensure the chat menu itself is a flex column */
+  display: flex; /* Added for correct flex behavior */
+  flex-direction: column; /* Added for correct flex behavior */
+  height: 100%; /* Ensure it takes full height */
+
+  /* Responsive Width for chat menu */
+  width: 100%; /* Default to full width on small screens */
+}
+
+/* On medium and large screens, fix column widths */
+@media (min-width: 768px) { /* md breakpoint */
+  .col-md-4 { /* Bootstrap default, can be overridden */
+    width: 300px; /* Fixed width for chat menu on medium screens */
+    flex: 0 0 300px; /* Prevent flex-grow/shrink */
+  }
+}
+
+@media (min-width: 992px) { /* lg breakpoint */
+  .col-lg-3 { /* Bootstrap default, can be overridden */
+    width: 350px; /* Fixed width for chat menu on large screens */
+    flex: 0 0 350px; /* Prevent flex-grow/shrink */
+  }
+}
+
+/* Top padding for Chat Menu */
+.chat-menu-top-padding {
+  height: 30px; /* Consistent top padding */
+  background-color: var(--custom-chat-menu-bg); /* Match menu background */
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+
+/* Chat list items within the chat menu */
+.custom-chat-list {
+  flex-grow: 1; /* Allow the list to take remaining vertical space */
+  overflow-y: auto; /* Enable scrolling for the chat list */
+  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+}
+
+.custom-chat-list .list-group-item {
+  background-color: transparent; /* Transparent background by default */
+  color: var(--dark-gray-text); /* Text for non-active items */
+  border-color: rgba(0, 0, 0, 0.1); /* Subtle border for list items */
+}
+
+.custom-chat-list .list-group-item:hover {
+  background-color: var(--light-gray); /* Light hover effect */
+  color: var(--dark-gray-text);
+}
+
+.custom-chat-list .list-group-item.active-chat {
+  background-color: var(--light-gray); /* More prominent active state */
+  color: var(--dark-gray-text);
+}
+
+/* Ensure text is visible in chat list items */
+.custom-chat-list .list-group-item .chat-list-name,
+.custom-chat-list .list-group-item .chat-list-last-message {
+    color: var(--dark-gray-text) !important; /* Force visibility on white background */
+}
+
+.custom-chat-list .list-group-item .chat-list-time { /* Override text-muted for timestamp inside chat list item */
+  color: rgba(0, 0, 0, 0.6) !important; /* Visible on white background */
+}
+
+.custom-chat-list .list-group-item.active-chat .chat-list-name,
+.custom-chat-list .list-group-item.active-chat .chat-list-last-message,
+.custom-chat-list .list-group-item.active-chat .chat-list-time {
+  color: var(--dark-gray-text) !important; /* Even clearer on active state */
+}
+
+
+/* Chat menu header buttons (Starred, Requests, Archived) */
+.chat-menu-action-btn {
+  color: var(--dark-gray-text) !important; /* Ensure these buttons are visible */
+  font-weight: 500; /* Slightly bolder */
+  padding: 0.25rem 0.5rem; /* More compact */
+  border-radius: 0.5rem; /* Rounded corners */
+  transition: background-color 0.2s ease, color 0.2s ease;
+  flex-grow: 1; /* Allow buttons to grow and fill space */
+  text-align: center; /* Center text/icons */
+  margin: 0 5px; /* Small margin between buttons */
+  border: 1px solid rgba(0,0,0,0.1); /* Subtle border */
+}
+.chat-menu-action-btn:first-child { margin-left: 0; }
+.chat-menu-action-btn:last-child { margin-right: 0; }
+
+.chat-menu-action-btn:hover {
+  background-color: var(--custom-secondary-purple); /* Background on hover */
+  color: white !important; /* Text color turns white */
+  border-color: var(--custom-secondary-purple); /* Border matches background on hover */
+}
+.chat-menu-action-btn:hover i {
+  color: white !important; /* Icon color turns white */
+}
+
+
+/* Chat list item dropdown toggle (three dots vertical) */
+.chat-list-dropdown-toggle {
+    color: var(--dark-gray-text) !important; /* Ensure this icon is visible on white */
+    opacity: 0.8 !important; /* Slightly subtle */
+}
+.chat-list-dropdown-toggle:hover {
+    opacity: 1 !important; /* Full visibility on hover */
+}
+
+/* Add a small arrow for the chat list item dropdown toggle */
+.chat-list-dropdown-toggle::after {
+  display: inline-block !important; /* Make the arrow visible */
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+  transform: rotate(0deg); /* Default dropdown arrow points down */
+  color: inherit !important; /* Inherit color from the button text, force it */
+}
+
+
+/* Search Input in Chat Menu */
+.custom-input-field {
+  border-radius: 20px !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: var(--light-gray); /* Light gray for search input */
+  border: none;
+  color: var(--dark-gray-text); /* Text color for input */
+}
+
+.custom-input-field::placeholder {
+  color: rgba(0, 0, 0, 0.5); /* Lighter placeholder text */
+}
+
+.custom-input-field:focus {
+  background-color: #E6E8EB; /* Slightly darker on focus */
+  box-shadow: none;
+  color: var(--dark-gray-text);
+}
+
+/* --- Chat Window (Rightmost Column) --- */
+.chat-window-column {
+    background-color: var(--chat-window-bg); /* White background for message area */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Subtle shadow for separation */
+}
+
+/* Top padding for Chat Window */
+.chat-window-top-padding {
+  height: 30px; /* Consistent top padding */
+  background-color: var(--chat-window-bg); /* Match window background */
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+/* Adjust width of chat window column based on chat menu visibility on smaller screens */
+@media (max-width: 767.98px) { /* sm breakpoint */
+    .chat-window-column.d-none { /* When chat menu is open on mobile */
+        display: none !important;
+    }
+    .chat-window-column.d-flex { /* When chat menu is closed on mobile */
+        width: 100%; /* Take full width */
+        flex: 1 1 auto;
+    }
+}
+
+/* On medium and large screens, adjust flex basis */
+@media (min-width: 768px) {
+  .chat-window-column {
+    flex: 1 1 auto; /* Allow it to take remaining space */
+  }
+}
+
+/* Chat Header */
+.custom-secondary-bg {
+    background-color: var(--custom-secondary-purple); /* Purple background */
+    color: white; /* Ensure text is white */
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.chat-header-bottom-border {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Thin white border at the bottom of header */
+}
+
+/* Message Area */
+.chat-messages {
+  padding: 0.5rem !important; /* Further reduced padding for message area, force it */
+  flex-grow: 1; /* Allow messages to take available space and scroll */
+  overflow-y: auto; /* Enable scrolling for messages */
+  -webkit-overflow-scrolling: touch; /* For smoother scrolling on iOS */
+}
+
+.message-bubble {
+  padding: 0.5rem 0.7rem !important; /* Further reduced padding for message bubbles, force it */
+  border-radius: 0.75rem; /* More rounded corners */
+  margin-bottom: 0.3rem !important; /* Further reduced spacing between bubbles, force it */
+  display: flex; /* Make it a flex container to align content and dropdown */
+  align-items: flex-end; /* Align content and dropdown at the bottom */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  /* Explicitly define background and text color to ensure visibility */
+  background-color: var(--bubble-other-bg); /* Default to other's bubble color */
+  color: var(--bubble-other-text); /* Default to other's bubble text color */
+  max-width: 70% !important; /* Set a max-width for message bubbles to control length, with !important */
+}
+
+.bubble-mine {
+  background-color: var(--bubble-mine-bg);
+  color: var(--bubble-mine-text);
+  border-bottom-right-radius: 0.2rem; /* Small cut for tail effect */
+}
+
+.bubble-other {
+  background-color: var(--bubble-other-bg);
+  color: var(--bubble-other-text);
+  border-bottom-left-radius: 0.2rem; /* Small cut for tail effect */
+}
+
+/* Sender name for group chats in message bubbles */
+.message-sender-name {
+    font-size: 0.8em;
+    color: var(--custom-secondary-purple); /* A distinct color for sender names in group chats */
+    margin-bottom: 0.2rem;
+}
+
+.message-bubble p {
+  word-wrap: break-word; /* Ensure long words wrap */
+  margin-bottom: 0;
+}
+
+/* Message Input area and its elements */
+.message-input-area {
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+/* Custom send button */
+.custom-send-btn {
+  background-color: var(--custom-sidebar-bg); /* Matching sidebar purple */
+  color: #fff;
+  width: 45px;
+  height: 45px;
+  min-width: 45px; /* Ensure it doesn't shrink */
+  min-height: 45px; /* Ensure it doesn't shrink */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.custom-send-btn:hover {
+  background-color: #4a388f; /* Darken on hover, slightly darker purple */
+  color: #fff;
+}
+
+/* Message Input area button visibility and color */
+.message-input-area .btn-link {
+  color: var(--dark-gray-text) !important; /* Make icons visible on white background, force it */
+  opacity: 0.8 !important; /* Slightly less prominent than text, force it */
+  transition: opacity 0.2s ease-in-out;
+}
+
+.message-input-area .btn-link:hover {
+  opacity: 1 !important; /* Full opacity on hover, force it */
+}
+
+/* Explicit styling for specific icons to ensure visibility */
+.bi-paperclip, .bi-emoji-smile, .bi-send-fill {
+    color: var(--dark-gray-text) !important; /* Default for input area icons, force it */
+    font-size: 1.5rem !important; /* Ensure good size, force it */
+}
+
+/* Sidebar toggle buttons */
+.toggle-sidebar-btn .bi-arrow-left-circle-fill,
+.toggle-sidebar-btn .bi-arrow-right-circle-fill {
+    color: white !important; /* Force white for sidebar toggle */
+    font-size: 1.5rem !important; /* Ensure size, force it */
+}
+
+/* Chat header mobile toggle */
+.chat-header-bottom-border .bi-list {
+    color: white !important; /* Force white for mobile chat menu toggle */
+    font-size: 1.5rem !important; /* Ensure size, force it */
+}
+
+/* Call and Screen Share Icons in Chat Header */
+.chat-header-bottom-border .bi-telephone-fill,
+.chat-header-bottom-border .bi-display-fill {
+    color: white !important; /* Force white for these icons */
+    font-size: 1.5rem !important; /* Ensure good size, force it */
+}
+
+
+/* Emoji Picker positioning */
+.emoji-picker-container {
+    position: absolute;
+    bottom: 60px; /* Adjust based on input area height */
+    left: 0; /* Align with the emoji button */
+    z-index: 1000; /* Ensure it's above other elements */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 0.5rem;
+    overflow: hidden; /* Ensures picker content stays within bounds */
+}
+
+
+/* --- Requests Modal --- */
+.requests-modal-body {
+  background-color: var(--requests-bg); /* Light purple background for modal body */
+  max-height: 300px; /* Fixed height for requests list */
+  overflow-y: auto; /* Make it scrollable */
+}
+
+
+/* --- Message Status Dot (Green/Red) --- */
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+/* Bootstrap success and secondary colors for status dots */
+.status-dot.bg-success { background-color: #198754 !important; } /* Seen */
+.status-dot.bg-secondary { background-color: #6c757d !important; } /* Unseen */
+
+
+/* --- Multi-Select Mode --- */
+.multi-select-actions {
+  background-color: var(--light-gray);
+  border-top: 1px solid rgba(0,0,0,.1);
+  padding: 1rem;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  z-index: 10; /* Ensure it's above messages when active */
+  flex-shrink: 0; /* Prevent it from shrinking */
+  /* Remove rounded-bottom-3 if it's causing issues with top border */
+  border-bottom-left-radius: 0; /* Ensure no bottom radius if it's a top bar */
+  border-bottom-right-radius: 0; /* Ensure no bottom radius if it's a top bar */
+}
+
+/* Highlight for selected message bubbles */
+.message-bubble.selected-bubble {
+  border: 2px solid var(--custom-secondary-purple) !important; /* Force border */
+}
+
+/* --- Reply/Forward Bar --- */
+.reply-edit-bar {
+  background-color: rgba(0, 0, 0, 0.05); /* Light translucent background */
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.replied-to-preview, .forwarded-from-preview {
+    background-color: rgba(0, 0, 0, 0.08); /* Slightly darker for nested preview */
+    padding: 0.25rem 0.5rem;
+    border-left: 3px solid var(--custom-secondary-purple); /* Accent bar */
+    border-radius: 0.25rem;
+    font-size: 0.85em;
+    color: var(--dark-gray-text);
+}
+
+
+/* --- Avatar Sizes --- */
+.avatar-sm {
+  width: 35px;
+  height: 35px;
+}
+
+.avatar-md {
+  width: 50px;
+  height: 50px;
+}
+
+.avatar-lg {
+  width: 100px;
+  height: 100px;
+}
+
+/* --- Dropdown Customizations --- */
+/* General dropdown toggle for react-bootstrap, remove default arrow */
+.custom-dropdown-toggle.no-arrow::after {
+  display: none !important;
+}
+
+/* Add a small arrow for the chat list item dropdown toggle */
+.chat-list-dropdown-toggle::after {
+  display: inline-block !important; /* Make the arrow visible */
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+  transform: rotate(0deg); /* Default dropdown arrow points down */
+  color: inherit !important; /* Inherit color from the button text, force it */
+}
+
+/* Message Bubble Dropdown Toggle Icon (three dots vertical) */
+.message-bubble-dropdown {
+    /* No absolute positioning here, it's part of the flex container */
+    flex-shrink: 0; /* Prevent it from shrinking */
+    margin-left: 5px; /* Space from message content */
+    align-self: flex-end; /* Align to the bottom of the bubble */
+}
+
+/* Adjust button padding to bring icon closer to edge of bubble */
+.message-bubble .message-bubble-dropdown .custom-dropdown-toggle {
+    padding: 0.25rem !important; /* Smaller padding for a more compact look, force it */
+    color: rgba(0, 0, 0, 0.5) !important; /* Default color for other bubbles, force it */
+    background-color: transparent !important; /* Ensure no background, force it */
+    border: none !important; /* No border, force it */
+}
+.bubble-mine .message-bubble-dropdown .custom-dropdown-toggle {
+    color: rgba(255, 255, 255, 0.7) !important; /* Lighter for visibility on dark backgrounds, force it */
+}
+
+/* Hover effect for the icon */
+.message-bubble .message-bubble-dropdown .custom-dropdown-toggle:hover,
+.message-bubble .message-bubble-dropdown .custom-dropdown-toggle:focus {
+    color: var(--dark-gray-text) !important; /* Darken icon on hover for light bubbles, force it */
+    background-color: rgba(0, 0, 0, 0.1) !important; /* Subtle background on hover, force it */
+    border-radius: 50% !important; /* Make hover area circular, force it */
+}
+
+.bubble-mine .message-bubble-dropdown .custom-dropdown-toggle:hover,
+.bubble-mine .message-bubble-dropdown .custom-dropdown-toggle:focus {
+    color: white !important; /* Keep white on hover for dark bubbles, force it */
+    background-color: rgba(255, 255, 255, 0.2) !important; /* Subtle white background on hover, force it */
+}
+
+
+.message-bubble .dropdown-menu {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.1);
+  min-width: 12rem;
+}
+
+.message-bubble .dropdown-item {
+  color: var(--dark-gray-text);
+  padding: 0.5rem 1rem;
+}
+
+.message-bubble .dropdown-item i {
+  color: var(--dark-gray-text); /* Icon color */
+}
+
+.message-bubble .dropdown-item:hover {
+  background-color: var(--light-gray);
+  color: var(--red-hover) !important; /* Text color turns red */
+}
+
+.message-bubble .dropdown-item:hover i {
+  color: var(--red-hover) !important; /* Icon color turns red */
+}
+
+
+/* Small icon adjustment for pinned icon in chat list */
+.small-icon {
+    font-size: 0.7em !important; /* Force size */
+}
+
+/* Multi-select mode styling */
+.multi-select-mode .message-bubble {
+    padding-left: 0 !important; /* Adjust padding when checkbox is present, force it */
+}
+
+/* Highlight for selected message bubbles */
+.message-bubble.selected-bubble {
+  border: 2px solid var(--custom-secondary-purple) !important; /* Force border */
+}
+
+/* Custom Modals */
+.modal-content {
+  border-radius: 0.75rem;
+}
+
+.modal-header {
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+.modal-footer {
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
+}
+
+/* Ensure full height for main container */
+#root, html, body {
+    height: 100%;
+}
+
+/* Custom Scrollbar for all scrollable elements */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--light-gray);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Specific scrollbar for modal bodies */
+.modal-body.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Lighter track for modals */
+}
+
+.modal-body.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Styling for group member selection list in modal */
+.members-selection-list .list-group-item {
+  border: none;
+  padding: 0.5rem 0;
+}
+.members-selection-list .list-group-item:not(:last-child) {
+  border-bottom: 1px solid rgba(0,0,0,0.05); /* Light separator */
+}
+.members-selection-list .form-check-input {
+  margin-right: 1rem;
+}
