@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Button, InputGroup, Form } from 'react-bootstrap';
 import { ThreeDotsVertical, SendFill } from 'react-bootstrap-icons';
-import '../styles/chat.css'; // ✅ All CSS is in chat.css, as you instructed
+
+
 
 // ----------------------------------
-// Sidebar (Marking this for later replacement as per your instructions)
+// Sidebar (Marking this for later replacement)
 // ----------------------------------
 function Sidebar() {
     return (
