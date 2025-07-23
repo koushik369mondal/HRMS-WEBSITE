@@ -79,7 +79,7 @@ CHAT section
 Sidebar CSS (Replace this when needed)
 ---------------------------------------- */
 .sidebar {
-    width: 15%;
+    width: 250px;
     height: 100vh;
     background-color: #5a6cf3;
     color: white;
@@ -600,3 +600,7 @@ Responsiveness
 .input-group .btn:hover {
     background-color: #4b3cd1;
 }
+
+/* ---------------------------------------
+CHAT section end
+---------------------------------------- */
