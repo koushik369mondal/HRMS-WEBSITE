@@ -44,6 +44,7 @@ export default function APP() {
       {/* <Dashboard/> */}
       <DashboardMain
       />
+      <Chat />
       {/* <DashboardMain/> */}
     </>
   )
