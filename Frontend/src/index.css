@@ -140,7 +140,7 @@ CHAT section
 Sidebar CSS (Replace this when needed)
 ---------------------------------------- */
 .sidebar {
-    width: 15%;
+    width: 250px;
     height: 100vh;
     background-color: #5a6cf3;
     color: white;
@@ -662,3 +662,7 @@ Responsiveness
     background-color: #4b3cd1;
 }
 >>>>>>> b85f6efc7392239bc27d0f14e5e692b3cb731ddf
+
+/* ---------------------------------------
+CHAT section end
+---------------------------------------- */
