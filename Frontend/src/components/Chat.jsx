@@ -7,108 +7,12 @@ const styles = `
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     box-sizing: border-box;
 }
-/* ---------------------------------------
-Sidebar CSS (Replace this when needed)
----------------------------------------- */
-.sidebar {
-    width: 15%;
-    height: 100vh;
-    background-color: #5a6cf3;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 0px 15px;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
 
-.logo-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.logo {
-    width: 200px;
-    height: 100px;
-    border-radius: 2px;
-    margin-bottom: 5px;
-}
-
-.brand-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: #ffffff;
-    line-height: 1.2;
-}
-
-.user-section {
-    display: flex;
-    align-items: center;
-    background-color: #4a5cd4;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 30px;
-}
-
-.profile-pic {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-}
-
-.user-details {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-name {
-    font-weight: bold;
-    font-size: 15px;
+html, body {
     margin: 0;
-}
-
-.user-role {
-    font-size: 12px;
-    color: #e0e0e0;
-    margin: 0;
-}
-
-.nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 14px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 8px;
-    color: white;
-}
-
-.nav-item .icon {
-    margin-right: 10px;
-    font-size: 16px;
-    font-style: normal;
-}
-
-.nav-item:hover {
-    background-color: #4a5cd4;
-}
-
-.nav-item.active {
-    background-color: white;
-    color: #5a6cf3;
-    font-weight: bold;
+    padding: 0;
+    overflow: hidden; 
+    height: 100%;
 }
 
 /* ---------------------------------------
@@ -117,17 +21,21 @@ Chat Layout & ChatList
 .app-container {
     display: flex;
     height: 100vh;
+    width: 100%;          
+    overflow: hidden;
 }
 
 .chatlist {
-    padding: 20px;
-    width: 35%;
+    margin-left: 225px;
+    padding: 20px 20px;
+    width: 500px;
     position: relative;
     height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #f9f9f9;
     box-sizing: border-box;
+    overflow: auto;    
 }
 
 .chatlist-header {
@@ -226,6 +134,8 @@ Chat Layout & ChatList
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 0.9rem;
+    background-color: #fff;
+    border-color: #ddd;
 }
 
 .chatlist-scroll {
@@ -272,12 +182,14 @@ Chat Layout & ChatList
 Chat Window & Messages
 ---------------------------------------- */
 .chat-window {
-    width: 50%;
+    margin-left: 0px;
+    width: 790px;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
     border-left: 1px solid #ddd;
     height: 100vh;
+    border-right: 5px solid #ddd;
 }
 
 .chat-window-inner {
@@ -413,6 +325,7 @@ Three Dots Dropdown
 ---------------------------------------- */
 .dots-wrapper {
     position: relative;
+    margin-right: 20px;
 }
 
 .dropdown-float {
@@ -542,30 +455,9 @@ Responsiveness
 function Sidebar() {
     return (
         <div className="sidebar">
-            <div className="logo-section">
-                <img src="src\assets\logo.jpg" alt="Logo" className="logo" />
-                <p className="brand-name">Human Resource Management System</p>
-            </div>
-            <div className="user-section">
-                <img src="src\assets\maria.png" alt="Profile" className="profile-pic" />
-                <div className="user-details">
-                    <p className="user-name">Maria</p>
-                    <p className="user-role">HR Manager</p>
-                </div>
-            </div>
-            <nav className="nav-links">
-                <div className="nav-item"><i className="icon">🏠</i> Dashboard</div>
-                <div className="nav-item active"><i className="icon">💬</i> Chat</div>
-                <div className="nav-item"><i className="icon">👥</i> Employees</div>
-                <div className="nav-item"><i className="icon">👍</i> Feed</div>
-                <div className="nav-item"><i className="icon">🔔</i> Recognition</div>
-                <div className="nav-item"><i className="icon">📅</i> Events</div>
-                <div className="nav-item"><i className="icon">👤</i> Profile</div>
-                <div className="nav-item"><i className="icon">⚙️</i> Settings</div>
-            </nav>
-        </div>
+        </div>  
     );
-}
+}// do not touch this it stops running
 
 // ----------------------------------
 // Chat List Section
