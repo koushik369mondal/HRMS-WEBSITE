@@ -7,8 +7,6 @@ const styles = `
     min-height: 100vh;
     background-color: #4c57c1;
     position: fixed;
-    top: 0;
-    left: 0;
 }
 
 .logo-img {
@@ -59,22 +57,22 @@ const styles = `
 }
 `
 function InjectStyles({ css }) {
-  return <style>{css}</style>;
+    return <style>{css}</style>;  
 }
 
 console.log("Sidebar loaded");
 const Sidebar = ( {setActivePage,activePage}) => {
     return (
-      <>
-      <InjectStyles css={styles} />
-
+        <>
+        <InjectStyles css={styles} />
+        
         <div className="side-navbar d-flex flex-column flex-shrink-0 p-3">
 
             {/*HRMS Logo */}
 
             <div className='logo-container text-center'>
                 <img 
-                    src="/images/logo.png" 
+                    src="/logo.png" 
                     alt='HRMS logo'
                     className='img-fluid logo-img'/>
             </div>
@@ -84,7 +82,7 @@ const Sidebar = ( {setActivePage,activePage}) => {
             <div className="profile-container">
                 <div className='profile-img-container d-flex justify-content-center align-items-center me-3'>
                     <img 
-                    src="/images/maria.jpg" 
+                    src="/maria.jpg" 
                     alt='Profile'
                     className='img-fluid profile-img'/>
                 </div>
