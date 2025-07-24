@@ -13,7 +13,8 @@ import { Toast } from 'react-bootstrap';
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
-  setDarkMode((prev) => !prev);};
+    setDarkMode((prev) => !prev);
+  };
   const [modals, setModals] = useState({});
   const [notification, setNotification] = useState(false);
   const [feedbackText, setFeedbackText] = useState('');
@@ -47,7 +48,7 @@ function App() {
           <ListGroup.Item className="bg-primary border-0 text-white"><FaUser /> Profile</ListGroup.Item>
           <ListGroup.Item className="bg-light border-0 text-dark"><FaUser /> Settings</ListGroup.Item>
         </ListGroup> */}
-        
+
       </div>
 
       <Container className="mt-4">
@@ -114,10 +115,48 @@ function App() {
           </div>
         ))}
 
-        {renderModal('privacyPolicy', 'Privacy Policy', <p>This is a short summary of our privacy policy. We protect your data.</p>)}
-        {renderModal('terms', 'Terms and Conditions', <p>By using this app, you agree to our terms and conditions listed here.</p>)}
-        {renderModal('cookies', 'Cookies Policy', <p>This app uses cookies to improve user experience and analyze traffic.</p>)}
-        {renderModal('contact', 'Contact', <p>Email us at support@hrms.com or call +91-1234567890</p>)}
+        {renderModal('privacyPolicy', 'Privacy Policy', <p><div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+          <p>At <b>UPTOSKILLS</b>, your privacy is our top priority. Our HRMS-SOCIAL-CONNECT platform ensures that personal and professional information is handled with utmost care and in compliance with data protection standards.</p>
+          <ul>
+            <li>🔐 No sharing of personal data with third parties.</li>
+            <li>📊 Data is collected only to enhance employee engagement and HR functionality.</li>
+            <li>🔒 All communication is encrypted and secure.</li>
+            <li>🛡️ Employees have full control over their shared data.</li>
+          </ul>
+          <p>For more information, contact us at <a href="mailto:privacy@uptoskills.com">privacy@uptoskills.com</a></p>
+        </div>
+        </p>)}
+        {renderModal('terms', 'Terms and Conditions', <div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+          <p>By using <b>UPTOSKILLS - HRMS-SOCIAL-CONNECT</b>, users agree to the following terms:</p>
+          <ul>
+            <li>✔️ The platform is intended solely for internal professional use.</li>
+            <li>❌ Misuse or sharing of inappropriate content is prohibited.</li>
+            <li>📌 Access may be monitored to ensure ethical usage.</li>
+            <li>⚠️ Violation of terms may result in access restriction or legal action.</li>
+          </ul>
+          <p>Continued use of the platform implies acceptance of these terms and any future updates.</p>
+        </div>
+        )}
+        {renderModal('cookies', 'Cookies Policy', <div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+          <p><b>UPTOSKILLS</b> uses cookies to improve user experience on the HRMS-SOCIAL-CONNECT platform:</p>
+          <ul>
+            <li>🍪 Remember login and preferences for seamless access.</li>
+            <li>📈 Track non-personal analytics to optimize features.</li>
+            <li>📊 Improve platform performance and responsiveness.</li>
+          </ul>
+          <p>We do <b>not</b> use cookies for advertising or third-party tracking. You can disable cookies in your browser settings, but some features may be limited.</p>
+        </div>
+        )}
+        {renderModal('contact', 'Contact', <div>
+          <p>📞 Have a question or need assistance? Reach out to us:</p>
+          <ul>
+            <li>📧 <b>Email:</b> <a href="mailto:support@uptoskills.com">support@uptoskills.com</a></li>
+            <li>📱 <b>Phone:</b> +91 98765 43210</li>
+            <li>🏢 <b>Office:</b> UPTOSKILLS Pvt. Ltd., Pune, Maharashtra</li>
+            <li>🕐 <b>Support Hours:</b> Mon–Fri, 10:00 AM – 6:00 PM</li>
+          </ul>
+        </div>
+        )}
 
         {renderModal('feedback', 'Feedback', (
           <Form onSubmit={(e) => {
@@ -174,4 +213,3 @@ function App() {
 }
 
 export default App;
-
