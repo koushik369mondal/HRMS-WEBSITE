@@ -4,20 +4,13 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import '../index.css';
 
-import profile1 from "../assets/client.jpg";
-import profile2 from "../assets/EventO.png";
-
 import { FaClock, FaCalendarAlt, FaVideo, FaGlobe } from "react-icons/fa";
 
 // Main Router Component
 export default function Events() {
-  return (
-    <Routes>
-      <Route path="/" element={<Event1 />} />
-      <Route path="/event/schedule" element={<Events2 />} />
-      <Route path="/event/confirmation" element={<Event3 />} />
-    </Routes>
-  );
+  // When used as a standalone component, render the Event1 component directly
+  // This allows it to work in the App.jsx switch statement
+  return <Event1 />;
 }
 
 // Event 1 Component
@@ -32,7 +25,7 @@ function Event1() {
       id: 1,
       name: "John Cena",
       title: "Quarterly Hackathon",
-      image: profile1,
+      image: "/logo.png",
       duration: "30 min",
       timeZone: "Asia/Kolkata",
       time: "03:00 - Tue Jul 15 2025",
@@ -41,7 +34,7 @@ function Event1() {
       id: 2,
       name: "Maria D'Souza",
       title: "Employee Onboarding Day",
-      image: profile2,
+      image: "/maria.jpg",
       duration: "1 Hour",
       timeZone: "Asia/Kolkata",
       time: "15:30 - Tue Jul 15 2025",
@@ -186,7 +179,7 @@ function Events2() {
             <div className="card shadow-sm p-4">
               <div className="d-flex align-items-center gap-3 mb-4">
                 <img
-                  src={profile2}
+                  src="/maria.jpg"
                   alt="Organizer"
                   style={{ width: "60px", height: "60px", borderRadius: "50%", objectFit: "cover", border: "2px solid #6A7ADA" }}
                 />
@@ -239,7 +232,7 @@ function Event3() {
       <div className="container py-4">
         <div className="event-wrapper card p-4 shadow-sm">
           <div className="event-header text-center mb-4">
-            <img src={profile1} alt="User" className="event-profile" style={{ width: 70, height: 70, borderRadius: "50%" }} />
+            <img src="/maria.jpg" alt="User" className="event-profile" style={{ width: 70, height: 70, borderRadius: "50%" }} />
             <h2 className="event-heading mt-3">You are scheduled</h2>
             <p className="event-subtext text-muted">A calendar invitation has been sent to your email address.</p>
           </div>
