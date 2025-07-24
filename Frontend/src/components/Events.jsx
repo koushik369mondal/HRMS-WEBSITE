@@ -26,5 +26,11 @@ export default function Events() {
     }
   };
 
-  return renderCurrentStep();
+  return (
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <div className="w-100">
+        {renderCurrentStep()}
+      </div>
+    </div>
+  );
 }

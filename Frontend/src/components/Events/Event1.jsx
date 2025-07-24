@@ -37,93 +37,91 @@ function Event1({ onNavigate }) {
     ];
 
     return (
-        <div className="main-content">
-            <div className="container py-4">
-                <h3 className="fw-bold mb-4">Event Listes -</h3>
-                <div className="row">
-                    <div className="col-md-5 mx-auto">
-                        {events.map((event) => (
-                            <div className="card mb-4 border-0 shadow-sm" key={event.id}>
-                                <div className="card-body">
-                                    <div className="d-flex align-items-center mb-3">
-                                        <img
-                                            src={event.image}
-                                            alt="avatar"
-                                            className="me-3"
-                                            style={{ width: 50, height: 50, borderRadius: "50%" }}
-                                        />
-                                        <div>
-                                            <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>{event.name}</p>
-                                            <h5 className="mb-0">{event.title}</h5>
-                                        </div>
-                                    </div>
-                                    <ul className="list-unstyled small text-muted mb-3">
-                                        <li><FaClock /> {event.duration}</li>
-                                        <li className="my-2"><FaCalendarAlt /> {event.time}</li>
-                                        <li><FaVideo /> Web conferencing details provided upon confirmation.</li>
-                                        <li><FaGlobe /> {event.timeZone}</li>
-                                    </ul>
-                                    <div className="d-flex justify-content-center">
-                                        <button className="btn btn-primary px-4">Join Event</button>
+        <div className="container py-4">
+            <h3 className="fw-bold mb-4">Event Listes -</h3>
+            <div className="row">
+                <div className="col-md-5 mx-auto">
+                    {events.map((event) => (
+                        <div className="card mb-4 border-0 shadow-sm" key={event.id}>
+                            <div className="card-body">
+                                <div className="d-flex align-items-center mb-3">
+                                    <img
+                                        src={event.image}
+                                        alt="avatar"
+                                        className="me-3"
+                                        style={{ width: 50, height: 50, borderRadius: "50%" }}
+                                    />
+                                    <div>
+                                        <p className="mb-0 text-muted" style={{ fontSize: "14px" }}>{event.name}</p>
+                                        <h5 className="mb-0">{event.title}</h5>
                                     </div>
                                 </div>
+                                <ul className="list-unstyled small text-muted mb-3">
+                                    <li><FaClock /> {event.duration}</li>
+                                    <li className="my-2"><FaCalendarAlt /> {event.time}</li>
+                                    <li><FaVideo /> Web conferencing details provided upon confirmation.</li>
+                                    <li><FaGlobe /> {event.timeZone}</li>
+                                </ul>
+                                <div className="d-flex justify-content-center">
+                                    <button className="btn btn-primary px-4">Join Event</button>
+                                </div>
                             </div>
-                        ))}
+                        </div>
+                    ))}
+                </div>
+
+                <div className="col-md-6">
+                    <div className="d-flex justify-content-between align-items-start gap-4 flex-wrap">
+                        <div style={{ flex: 1 }}>
+                            <h5 className="mb-3 fw-bold">Select a Date & Time</h5>
+                            <div className="bg-white p-3 rounded shadow-sm border mb-3" style={{ display: "flex", justifyContent: "center" }}>
+                                <Calendar onChange={setSelectedDate} value={selectedDate} />
+                            </div>
+                            <p className="mt-3 mb-1 fw-semibold">Time zone</p>
+                            <select className="form-select" value={timezone} onChange={(e) => setTimezone(e.target.value)}>
+                                <option value="Asia/Kolkata">Asia/Kolkata (India)</option>
+                                <option value="Asia/Yerevan">Asia/Yerevan (Armenia)</option>
+                                <option value="America/New_York">America/New_York (USA - Eastern)</option>
+                                <option value="America/Los_Angeles">America/Los_Angeles (USA - Pacific)</option>
+                                <option value="Europe/London">Europe/London (UK)</option>
+                                <option value="Europe/Berlin">Europe/Berlin (Germany)</option>
+                                <option value="Asia/Dubai">Asia/Dubai (UAE)</option>
+                                <option value="Asia/Tokyo">Asia/Tokyo (Japan)</option>
+                                <option value="Australia/Sydney">Australia/Sydney</option>
+                                <option value="Africa/Nairobi">Africa/Nairobi (Kenya)</option>
+                            </select>
+                        </div>
+
+                        <div className="text-end" style={{ minWidth: "120px" }}>
+                            <p className="fw-semibold mb-2">{selectedDate.toDateString()}</p>
+                            <div className="d-flex flex-column gap-2">
+                                {times.map((time) => (
+                                    <button
+                                        key={time}
+                                        onClick={() => setSelectedTime(time)}
+                                        className={`btn fw-semibold ${selectedTime === time ? "btn-primary" : "btn-outline-primary"}`}
+                                        style={{ borderRadius: "8px", borderWidth: "2px" }}
+                                    >
+                                        {time}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="col-md-6">
-                        <div className="d-flex justify-content-between align-items-start gap-4 flex-wrap">
-                            <div style={{ flex: 1 }}>
-                                <h5 className="mb-3 fw-bold">Select a Date & Time</h5>
-                                <div className="bg-white p-3 rounded shadow-sm border mb-3" style={{ display: "flex", justifyContent: "center" }}>
-                                    <Calendar onChange={setSelectedDate} value={selectedDate} />
-                                </div>
-                                <p className="mt-3 mb-1 fw-semibold">Time zone</p>
-                                <select className="form-select" value={timezone} onChange={(e) => setTimezone(e.target.value)}>
-                                    <option value="Asia/Kolkata">Asia/Kolkata (India)</option>
-                                    <option value="Asia/Yerevan">Asia/Yerevan (Armenia)</option>
-                                    <option value="America/New_York">America/New_York (USA - Eastern)</option>
-                                    <option value="America/Los_Angeles">America/Los_Angeles (USA - Pacific)</option>
-                                    <option value="Europe/London">Europe/London (UK)</option>
-                                    <option value="Europe/Berlin">Europe/Berlin (Germany)</option>
-                                    <option value="Asia/Dubai">Asia/Dubai (UAE)</option>
-                                    <option value="Asia/Tokyo">Asia/Tokyo (Japan)</option>
-                                    <option value="Australia/Sydney">Australia/Sydney</option>
-                                    <option value="Africa/Nairobi">Africa/Nairobi (Kenya)</option>
-                                </select>
-                            </div>
-
-                            <div className="text-end" style={{ minWidth: "120px" }}>
-                                <p className="fw-semibold mb-2">{selectedDate.toDateString()}</p>
-                                <div className="d-flex flex-column gap-2">
-                                    {times.map((time) => (
-                                        <button
-                                            key={time}
-                                            onClick={() => setSelectedTime(time)}
-                                            className={`btn fw-semibold ${selectedTime === time ? "btn-primary" : "btn-outline-primary"}`}
-                                            style={{ borderRadius: "8px", borderWidth: "2px" }}
-                                        >
-                                            {time}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="text-center mt-4">
-                            <button
-                                className="btn btn-primary px-4 py-2 fw-bold"
-                                onClick={() =>
-                                    onNavigate('event2', {
-                                        date: selectedDate.toDateString(),
-                                        time: selectedTime,
-                                        timezone,
-                                    })
-                                }
-                            >
-                                Schedule New Event
-                            </button>
-                        </div>
+                    <div className="text-center mt-4">
+                        <button
+                            className="btn btn-primary px-4 py-2 fw-bold"
+                            onClick={() =>
+                                onNavigate('event2', {
+                                    date: selectedDate.toDateString(),
+                                    time: selectedTime,
+                                    timezone,
+                                })
+                            }
+                        >
+                            Schedule New Event
+                        </button>
                     </div>
                 </div>
             </div>
