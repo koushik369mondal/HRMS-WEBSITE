@@ -73,7 +73,7 @@ button:focus-visible {
   }
 }
 
-<<<<<<< HEAD
+/*head*/
 /* ===== Tailwind Custom Utility Classes ===== */
 .input {
   @apply w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-400;
@@ -127,4 +127,3 @@ button:focus-visible {
     transform: rotate(360deg);
   }
 }
-=======
