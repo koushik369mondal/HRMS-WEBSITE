@@ -27,116 +27,9 @@ const styles = `
   min-height: 100vh;
 }
 
-.sidebar-col {
-  padding: 0;
-}
-
 .main-content {
   background-color: #f8f9fa;
   padding: 0;
-}
-
-/* Sidebar Styles */
-.sidebar {
-  background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
-  min-height: 100vh;
-  padding: 20px 0;
-  color: white;
-}
-
-.sidebar-header {
-  padding: 0 20px 30px;
-}
-
-.logo {
-  margin-bottom: 30px;
-}
-
-.logo-text {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-}
-
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.avatar-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: #4A90E2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-}
-
-.user-info {
-  flex: 1;
-}
-
-.user-name {
-  font-weight: 600;
-  font-size: 14px;
-  margin-bottom: 2px;
-}
-
-.user-role {
-  font-size: 12px;
-  opacity: 0.8;
-}
-
-.sidebar-nav {
-  padding: 0;
-}
-
-.sidebar-nav-item {
-  display: flex !important;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 20px !important;
-  color: rgba(255, 255, 255, 0.8) !important;
-  text-decoration: none !important;
-  border: none !important;
-  border-radius: 0 !important;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.sidebar-nav-item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: white !important;
-}
-
-.sidebar-nav-item.active {
-  background: rgba(255, 255, 255, 0.2) !important;
-  color: white !important;
-  border-left: 3px solid white !important;
-}
-
-.nav-icon {
-  flex-shrink: 0;
-}
-
-.nav-label {
-  font-size: 14px;
-  font-weight: 500;
 }
 
 /* Dashboard Header */
@@ -426,52 +319,8 @@ const styles = `
 }
 `
 
-// Sidebar Component
-const Sidebar = () => {
-  const menuItems = [
-    { icon: LayoutDashboard, label: "Dashboard", active: true },
-    { icon: MessageCircle, label: "Chat" },
-    { icon: Users, label: "Employees" },
-    { icon: FileText, label: "Feed" },
-    { icon: Award, label: "Recognition" },
-    { icon: Calendar, label: "Event" },
-    { icon: User, label: "Profile" },
-    { icon: Settings, label: "Settings" },
-  ]
-
-  return (
-    <div className="sidebar">
-      <div className="sidebar-header">
-        <div className="logo">
-          <span className="logo-text">HRMS</span>
-        </div>
-        <div className="user-profile">
-          <div className="user-avatar">
-            <div className="avatar-img">M</div>
-          </div>
-          <div className="user-info">
-            <div className="user-name">Maria</div>
-            <div className="user-role">HR Manager</div>
-          </div>
-        </div>
-      </div>
-
-      <Nav className="sidebar-nav flex-column">
-        {menuItems.map((item, index) => {
-          const IconComponent = item.icon
-          return (
-            <Nav.Link key={index} className={`sidebar-nav-item ${item.active ? "active" : ""}`}>
-              <IconComponent size={20} className="nav-icon" />
-              <span className="nav-label">{item.label}</span>
-            </Nav.Link>
-          )
-        })}
-      </Nav>
-    </div>
-  )
-}
-
 // Stats Cards Component
+
 const StatsCards = () => {
   const stats = [
     {
@@ -729,10 +578,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <Row className="g-0 min-vh-100">
-        <Col md={3} lg={2} className="sidebar-col">
-          <Sidebar />
-        </Col>
-        <Col md={9} lg={10} className="main-content">
+        <Col md={9} lg={10} className="main-content" style={{marginLeft: '250px'}}>
           <div className="dashboard-header">
             <h2 className="dashboard-title">Dashboard</h2>
           </div>
