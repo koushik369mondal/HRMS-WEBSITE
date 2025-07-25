@@ -12,8 +12,9 @@ function Event3({ eventData }) {
     } = eventData || {};
 
     return (
-        <div className="container py-4">
-            <div className="event-wrapper card p-4 shadow-sm">
+        <div className="main-content d-flex justify-content-center">
+            <div className="container py-4">
+                <div className="event-wrapper card p-4 shadow-sm">
                 <div className="event-header text-center mb-4">
                     <img src="/maria.jpg" alt="User" className="event-profile" style={{ width: 70, height: 70, borderRadius: "50%" }} />
                     <h2 className="event-heading mt-3">You are scheduled</h2>
@@ -27,9 +28,8 @@ function Event3({ eventData }) {
                     <p><FaGlobe /> {timezone}</p>
                     <p><FaVideo /> {conferenceDetails}</p>
                 </div>
+                </div>
             </div>
         </div>
     );
-}
-
-export default Event3;
+}export default Event3;
