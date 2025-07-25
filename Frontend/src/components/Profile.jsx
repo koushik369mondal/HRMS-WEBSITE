@@ -10,18 +10,16 @@ const Profile = () => {
             <div className="card shadow-sm">
               <div className="card-body">
                 <div className="text-center mb-4">
-                  <img 
-                    src="/maria.jpg" 
-                    alt="Profile" 
-                    className="rounded-circle mb-3" 
+                  <img
+                    src="/maria.jpg"
+                    alt="Profile"
+                    className="rounded-circle mb-3"
                     style={{ width: "120px", height: "120px", objectFit: "cover" }}
                   />
-                  <h4>Maria D
-'
-Souza</h4>
+                  <h4>Maria D Souza</h4>
                   <p className="text-muted">HR Manager</p>
                 </div>
-                
+
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <label className="form-label fw-bold">Email</label>
@@ -48,7 +46,7 @@ Souza</h4>
                     <p>New York, NY</p>
                   </div>
                 </div>
-                
+
                 <div className="text-center mt-4">
                   <button className="btn btn-primary me-2">Edit Profile</button>
                   <button className="btn btn-outline-secondary">Change Password</button>

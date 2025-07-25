@@ -28,51 +28,68 @@ function Settings() {
   );
 
   return (
-    <div className={`d-flex ${modals && Object.values(modals).some(Boolean) ? 'blurred-bg' : ''}`}>
-      <div /*className="bg-primary text-white vh-100 p-3"*/ style={{ width: '250px' }}>
-        {/* <div className="text-center mb-4">
-          <img src="assets/maria.png" alt="User" className="rounded-circle mb-2" style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
-          <h6>Maria</h6>
-          <small>HR Manager</small>
-        </div>
-        <ListGroup variant="flush" className="text-white">
-          <ListGroup.Item className="bg-primary border-0 text-white"><FaTachometerAlt /> Dashboard</ListGroup.Item>
-          <ListGroup.Item className="bg-primary border-0 text-white"><FaComments /> Chat</ListGroup.Item>
-          <ListGroup.Item className="bg-primary border-0 text-white"><FaUsers /> Employees</ListGroup.Item>
-          <ListGroup.Item className="bg-primary border-0 text-white"><FaNewspaper /> Feed</ListGroup.Item>
-          <ListGroup.Item className="bg-primary border-0 text-white"><FaAward /> Recognition</ListGroup.Item>
-          <ListGroup.Item className="bg-primary border-0 text-white"><FaCalendarAlt /> Event</ListGroup.Item>
-          <ListGroup.Item className="bg-primary border-0 text-white"><FaUser /> Profile</ListGroup.Item>
-          <ListGroup.Item className="bg-light border-0 text-dark"><FaUser /> Settings</ListGroup.Item>
-        </ListGroup> */}
-
-      </div>
-
-      <Container className="mt-4">
-        <Row>
-          <Col md={8}>
-            <h3><u>Settings</u></h3>
-            <ListGroup variant="flush" className="mt-5">
-              <ListGroup.Item><FaBell /> Notification
-                <Form.Check type="switch" className="float-end" checked={notification} onChange={() => setNotification(!notification)} />
+    <div className={`${darkMode ? 'dark-mode' : ''} ${modals && Object.values(modals).some(Boolean) ? 'blurred-bg' : ''} min-vh-100`}>
+      <Container fluid className="settings-container">
+        <Row className="justify-content-center">
+          <Col lg={8}>
+            <h3 className="settings-title">
+              <u>Settings</u>
+            </h3>
+            <ListGroup variant="flush" className="settings-list mt-4">
+              <ListGroup.Item className="d-flex justify-content-between align-items-center py-3 border-bottom">
+                <div className="d-flex align-items-center gap-3">
+                  <FaBell className="text-primary" />
+                  <span className="fw-medium">Notification</span>
+                </div>
+                <Form.Check type="switch" checked={notification} onChange={() => setNotification(!notification)} />
               </ListGroup.Item>
-              <ListGroup.Item><FaMoon /> Dark Mode
-                <Form.Check type="switch" className="float-end" checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+              <ListGroup.Item className="d-flex justify-content-between align-items-center py-3 border-bottom">
+                <div className="d-flex align-items-center gap-3">
+                  <FaMoon className="text-primary" />
+                  <span className="fw-medium">Dark Mode</span>
+                </div>
+                <Form.Check type="switch" checked={darkMode} onChange={toggleDarkMode} />
               </ListGroup.Item>
-              <ListGroup.Item action onClick={() => toggleModal('rateApp')}><FaStar /> Rate App</ListGroup.Item>
-              <ListGroup.Item action onClick={() => toggleModal('shareApp')}><FaShareAlt /> Share App</ListGroup.Item>
-              <ListGroup.Item action onClick={() => toggleModal('privacyPolicy')}><FaLock /> Privacy Policy</ListGroup.Item>
-              <ListGroup.Item action onClick={() => toggleModal('terms')}><FaFileAlt /> Terms and Conditions</ListGroup.Item>
-              <ListGroup.Item action onClick={() => toggleModal('cookies')}><FaCookieBite /> Cookies Policy</ListGroup.Item>
-              <ListGroup.Item action onClick={() => toggleModal('contact')}><FaEnvelope /> Contact</ListGroup.Item>
-              <ListGroup.Item action onClick={() => toggleModal('feedback')}><FaComment /> Feedback</ListGroup.Item>
-              <ListGroup.Item action className="text-danger" onClick={() => toggleModal('logout')}><FaSignOutAlt /> Logout</ListGroup.Item>
+              <ListGroup.Item action onClick={() => toggleModal('rateApp')} className="d-flex align-items-center gap-3 py-3 border-bottom">
+                <FaStar className="text-primary" />
+                <span className="fw-medium">Rate App</span>
+              </ListGroup.Item>
+              <ListGroup.Item action onClick={() => toggleModal('shareApp')} className="d-flex align-items-center gap-3 py-3 border-bottom">
+                <FaShareAlt className="text-primary" />
+                <span className="fw-medium">Share App</span>
+              </ListGroup.Item>
+              <ListGroup.Item action onClick={() => toggleModal('privacyPolicy')} className="d-flex align-items-center gap-3 py-3 border-bottom">
+                <FaLock className="text-primary" />
+                <span className="fw-medium">Privacy Policy</span>
+              </ListGroup.Item>
+              <ListGroup.Item action onClick={() => toggleModal('terms')} className="d-flex align-items-center gap-3 py-3 border-bottom">
+                <FaFileAlt className="text-primary" />
+                <span className="fw-medium">Terms and Conditions</span>
+              </ListGroup.Item>
+              <ListGroup.Item action onClick={() => toggleModal('cookies')} className="d-flex align-items-center gap-3 py-3 border-bottom">
+                <FaCookieBite className="text-primary" />
+                <span className="fw-medium">Cookies Policy</span>
+              </ListGroup.Item>
+              <ListGroup.Item action onClick={() => toggleModal('contact')} className="d-flex align-items-center gap-3 py-3 border-bottom">
+                <FaEnvelope className="text-primary" />
+                <span className="fw-medium">Contact</span>
+              </ListGroup.Item>
+              <ListGroup.Item action onClick={() => toggleModal('feedback')} className="d-flex align-items-center gap-3 py-3 border-bottom">
+                <FaComment className="text-primary" />
+                <span className="fw-medium">Feedback</span>
+              </ListGroup.Item>
+              <ListGroup.Item action className="d-flex align-items-center gap-3 py-3 text-danger" onClick={() => toggleModal('logout')}>
+                <FaSignOutAlt className="text-danger" />
+                <span className="fw-medium">Logout</span>
+              </ListGroup.Item>
             </ListGroup>
           </Col>
-          <Col md={4} className="text-center">
-            <img src="assets/hrms_logo.png" alt="HRMS" className="img-fluid" style={{ maxWidth: '200px' }} />
-            <p className="mt-3">Human Resource Management System</p>
-            <img src="assets/hrms_2.png" alt="Illustration" className="img-fluid" />
+          <Col lg={4} className="text-center d-flex align-items-center">
+            <div className="w-100">
+              <img src="/logo.png" alt="HRMS" className="img-fluid mb-3" style={{ maxWidth: '200px' }} />
+              <h5 className="text-primary fw-bold mb-3">Human Resource Management System</h5>
+              <img src="/public/logo.png" alt="Illustration" className="img-fluid" style={{ maxWidth: '300px', opacity: 0.8 }} />
+            </div>
           </Col>
         </Row>
 
@@ -100,8 +117,6 @@ function Settings() {
             </Button>
           </div>
         ))}
-
-
 
         {renderModal('shareApp', 'Share App', (
           <div>
@@ -180,9 +195,6 @@ function Settings() {
           </Form>
         ))}
 
-
-
-
         {renderModal('logout', 'Logout Confirmation', (
           <>
             <p>Are you sure you want to logout?</p>
@@ -191,6 +203,7 @@ function Settings() {
           </>
         ))}
       </Container>
+
       <Toast
         onClose={() => setToast({ ...toast, show: false })}
         show={toast.show}
@@ -204,7 +217,6 @@ function Settings() {
         </Toast.Header>
         <Toast.Body>{toast.message}</Toast.Body>
       </Toast>
-
     </div>
   );
 }

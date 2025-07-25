@@ -43,29 +43,21 @@ const Feed = () => {
     }));
   };
 
+  // Save handler
+  const handleSave = (postId) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          isSaved: !post.isSaved
+        };
+      }
+      return post;
+    }));
+  };
+
   return (
     <div style={styles.appContainer}>
-      {/* Sidebar */}
-      <div style={styles.sidebar}>
-        <div style={styles.sidebarHeader}>
-          <h1 style={styles.firmsTitle}>HRMS</h1>
-          <div style={styles.userProfile}>
-            <h2 style={styles.userName}>Maria</h2>
-            <p style={styles.userRole}>HR Manager</p>
-          </div>
-        </div>
-
-        <div style={styles.dashboardSection}>
-          <Nav className="flex-column">
-            {['Dashboard', 'Chat', 'Employees', 'Feed', 'Recognition', 'Event', 'Profile', 'Settings'].map((item) => (
-              <Nav.Link key={item} style={styles.navItem}>
-                {item}
-              </Nav.Link>
-            ))}
-          </Nav>
-        </div>
-      </div>
-
       {/* Main Content */}
       <div style={styles.mainContent}>
         <h4 style={styles.feedHeader}>Feed</h4>
@@ -88,11 +80,20 @@ const Feed = () => {
               </Card.Text>
 
               <div style={styles.postActions}>
-                <Button variant="link" onClick={() => handleLike(post.id)}>
+                <Button variant="link" onClick={() => handleLike(post.id)} style={styles.actionButton}>
                   {post.isLiked ? <HeartFill color="red" /> : <Heart />}
                   <span style={styles.actionCount}>{post.likes}</span>
                 </Button>
-                {/* Add other action buttons here */}
+                <Button variant="link" style={styles.actionButton}>
+                  <Chat />
+                  <span style={styles.actionCount}>{post.comments}</span>
+                </Button>
+                <Button variant="link" style={styles.actionButton}>
+                  <Share />
+                </Button>
+                <Button variant="link" onClick={() => handleSave(post.id)} style={styles.actionButton}>
+                  {post.isSaved ? <BookmarkFill color="blue" /> : <Bookmark />}
+                </Button>
               </div>
             </Card.Body>
           </Card>
@@ -119,95 +120,106 @@ const styles = {
   appContainer: {
     display: 'flex',
     minHeight: '100vh',
-    backgroundColor: '#f8f9fa'
-  },
-  sidebar: {
-    width: '250px',
-    backgroundColor: '#2c3e50',
-    color: 'white',
-    padding: '20px',
-    position: 'fixed',
-    height: '100vh'
-  },
-  sidebarHeader: {
-    paddingBottom: '20px',
-    borderBottom: '1px solid rgba(255,255,255,0.1)'
-  },
-  firmsTitle: {
-    fontSize: '1.5rem',
-    marginBottom: '1rem',
-    color: '#fff'
-  },
-  userProfile: {
-    marginTop: '1rem'
-  },
-  userName: {
-    fontSize: '1.2rem',
-    marginBottom: '0.2rem'
-  },
-  userRole: {
-    color: '#b8c7ce',
-    fontSize: '0.9rem'
-  },
-  navItem: {
-    color: '#b8c7ce',
-    padding: '10px 15px',
-    margin: '5px 0',
-    borderRadius: '4px',
-    textDecoration: 'none',
-    ':hover': {
-      backgroundColor: '#1a2226',
-      color: '#fff'
-    }
+    backgroundColor: '#f8f9fa',
+    width: '100%'
   },
   mainContent: {
     flex: 2,
-    marginLeft: '250px',
-    padding: '20px',
+    padding: '30px',
     height: '100vh',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    width: '100%'
   },
   feedHeader: {
     fontWeight: 600,
     color: '#333',
-    marginBottom: '1rem'
+    marginBottom: '2rem',
+    fontSize: '1.5rem'
   },
   feedCard: {
-    borderRadius: '10px',
-    border: '1px solid #e9ecef',
-    boxShadow: '0 2px 4px rgba(0,0,0,0.03)',
-    marginBottom: '1rem'
+    borderRadius: '12px',
+    border: 'none',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.08)',
+    marginBottom: '1.5rem',
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease'
   },
   postHeader: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: '0.5rem'
+    marginBottom: '1rem'
   },
   userInfo: {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.5rem'
+    gap: '12px'
   },
   avatar: {
-    width: '36px',
-    height: '36px',
-    backgroundColor: '#f0f2f5',
+    width: '40px',
+    height: '40px',
+    backgroundColor: '#e9ecef',
     borderRadius: '50%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontWeight: 600,
-    color: '#495057'
+    color: '#495057',
+    fontSize: '14px'
+  },
+  postContent: {
+    fontSize: '1rem',
+    lineHeight: '1.6',
+    color: '#333',
+    marginBottom: '1rem'
+  },
+  postActions: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+    paddingTop: '1rem',
+    borderTop: '1px solid #f0f0f0'
+  },
+  actionButton: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    padding: '8px 12px',
+    border: 'none',
+    background: 'none',
+    color: '#6c757d',
+    textDecoration: 'none',
+    borderRadius: '20px',
+    transition: 'all 0.2s ease'
+  },
+  actionCount: {
+    fontSize: '14px',
+    fontWeight: '500'
+  },
+  dotsButton: {
+    border: 'none',
+    background: 'none',
+    color: '#6c757d',
+    padding: '4px'
   },
   rightPanel: {
     flex: 1,
     maxWidth: '350px',
-    padding: '20px',
+    padding: '30px 20px',
     height: '100vh',
     overflowY: 'auto'
   },
-  // Add more styles as needed
+  panelCard: {
+    borderRadius: '12px',
+    border: 'none',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.08)'
+  },
+  pointsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    fontSize: '1rem',
+    fontWeight: '500'
+  }
 };
 
 export default Feed;

@@ -577,27 +577,25 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <Row className="g-0 min-vh-100">
-        <Col md={9} lg={10} className="main-content" style={{marginLeft: '250px'}}>
-          <div className="dashboard-header">
-            <h2 className="dashboard-title">Dashboard</h2>
-          </div>
+      <div className="dashboard-header">
+        <h2 className="dashboard-title">Dashboard</h2>
+      </div>
 
-          <Container fluid className="dashboard-content">
-            <StatsCards />
+      <Container fluid className="dashboard-content">
+        <StatsCards />
 
-            <Row className="mt-4">
-              <Col>
-                <Card className="chart-card">
-                  <Card.Body>
-                    <div className="d-flex justify-content-between align-items-center mb-3">
-                      <h5 className="chart-title">Statistics of active applications</h5>
-                      <div className="d-flex align-items-center gap-3">
-                        <div className="chart-toggles d-flex gap-3">
-                          <div className="d-flex align-items-center gap-2">
-                            <div className="toggle-switch active">
-                              <div className="toggle-slider"></div>
-                            </div>
+        <Row className="mt-4">
+          <Col>
+            <Card className="chart-card">
+              <Card.Body>
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                  <h5 className="chart-title">Statistics of active applications</h5>
+                  <div className="d-flex align-items-center gap-3">
+                    <div className="chart-toggles d-flex gap-3">
+                      <div className="d-flex align-items-center gap-2">
+                        <div className="toggle-switch active">
+                          <div className="toggle-slider"></div>
+                        </div>
                             <span className="toggle-label">Applications</span>
                           </div>
                           <div className="d-flex align-items-center gap-2">
@@ -665,8 +663,6 @@ const Dashboard = () => {
               </Col>
             </Row>
           </Container>
-        </Col>
-      </Row>
     </div>
   )
 }
