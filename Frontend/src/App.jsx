@@ -31,7 +31,13 @@ function App() {
   return (
     <div className='d-flex h-100'>
       <Sidebar activePage={activePage} setActivePage={setActivePage} />
-      <div className="main-content p-4" style={{ width: '100%' }}>
+      <div className="main-content" style={{ 
+        marginLeft: '250px', 
+        width: 'calc(100% - 250px)', 
+        minHeight: '100vh',
+        padding: '20px',
+        backgroundColor: '#f8f9fa'
+      }}>
         {renderPage()}
       </div>
     </div>

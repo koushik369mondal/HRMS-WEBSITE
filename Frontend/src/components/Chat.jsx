@@ -26,7 +26,6 @@ Chat Layout & ChatList
 }
 
 .chatlist {
-    margin-left: 225px;
     padding: 20px 20px;
     width: 500px;
     position: relative;

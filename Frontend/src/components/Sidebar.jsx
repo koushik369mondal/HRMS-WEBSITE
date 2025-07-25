@@ -16,6 +16,9 @@ const styles = `
     min-height: 100vh;
     background-color: #4c57c1;
     position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .logo-img {
