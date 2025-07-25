@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import { Container, Row, Col, ListGroup, Modal, Button, Form } from 'react-bootstrap';
 import {
   FaBell, FaMoon, FaStar, FaShareAlt, FaLock, FaFileAlt,
-  FaCookieBite, FaEnvelope, FaComment, FaSignOutAlt, FaTachometerAlt,
-  FaComments, FaUsers, FaNewspaper, FaAward, FaCalendarAlt, FaUser
+  FaCookieBite, FaEnvelope, FaComment, FaSignOutAlt
 } from 'react-icons/fa';
 import { Toast } from 'react-bootstrap';
 
 
-function App() {
+function Settings() {
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setDarkMode((prev) => !prev);
@@ -212,4 +209,4 @@ function App() {
   );
 }
 
-export default App;
+export default Settings;

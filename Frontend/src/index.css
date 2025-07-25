@@ -1,7 +1,4 @@
-/* ===== Tailwind Base ===== */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Londrina+Sketch&family=Montserrat:wght@100..900&family=Poppins:wght@700&family=Roboto:wght@100..900&family=Silkscreen:wght@400;700&display=swap');
 
 /* ===== Global Variables & Typography ===== */
 :root {
@@ -74,17 +71,39 @@ button:focus-visible {
 }
 
 /*HEAD*/
-/* ===== Tailwind Custom Utility Classes ===== */
+/* ===== Custom Utility Classes ===== */
 .input {
-  @apply w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-400;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.5);
 }
 
 .btn-purple {
-  @apply bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700;
+  background-color: #7c3aed;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.btn-purple:hover {
+  background-color: #6d28d9;
 }
 
 .btn-light {
-  @apply bg-gray-200 text-black px-6 py-2 rounded hover:bg-gray-300;
+  background-color: #e5e7eb;
+  color: black;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.btn-light:hover {
+  background-color: #d1d5db;
 }
 
 /* ===== App-specific Styles ===== */
@@ -128,7 +147,6 @@ button:focus-visible {
   }
 }
 /*=======*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Londrina+Sketch&family=Montserrat:wght@100..900&family=Poppins:wght@700&family=Roboto:wght@100..900&family=Silkscreen:wght@400;700&display=swap');
 
 /* === Font Variables === */
 :root {
