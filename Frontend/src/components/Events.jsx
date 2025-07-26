@@ -53,7 +53,7 @@ function Event1({ onNavigate }) {
       id: 1,
       name: "John Cena",
       title: "Quarterly Hackathon",
-      image: "/logo.png",
+      image: "/maria.jpg",
       duration: "30 min",
       timeZone: "Asia/Kolkata",
       time: "03:00 - Tue Jul 15 2025",
