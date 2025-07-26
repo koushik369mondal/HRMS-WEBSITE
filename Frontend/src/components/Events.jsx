@@ -1,28 +1,49 @@
 import React, { useState } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import '../App.css'
 
-import profile1 from "../assets/client.jpg";
-import profile2 from "../assets/EventO.png";
-
 import { FaClock, FaCalendarAlt, FaVideo, FaGlobe } from "react-icons/fa";
 
-// Main Router Component
+// Main Events Component with internal navigation
 export default function Events() {
+  const [currentStep, setCurrentStep] = useState('event1');
+  const [eventData, setEventData] = useState({});
+  const [showPopup, setShowPopup] = useState(false);
+
+  const navigateToStep = (step, data = {}) => {
+    if (step === 'event3') {
+      setEventData({ ...eventData, ...data });
+      setShowPopup(true);
+    } else {
+      setEventData({ ...eventData, ...data });
+      setCurrentStep(step);
+    }
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
+    setCurrentStep('event1');
+    setEventData({});
+  };
+
   return (
-    <Routes>
-      <Route path="/" element={<Event1 />} />
-      <Route path="/event/schedule" element={<Events2 />} />
-      <Route path="/event/confirmation" element={<Event3 />} />
-    </Routes>
+    <div style={{ position: 'relative' }}>
+      {currentStep === 'event1' && <Event1 onNavigate={navigateToStep} />}
+      {currentStep === 'event2' && <Event2 onNavigate={navigateToStep} eventData={eventData} />}
+      
+      {showPopup && (
+        <Event3Popup 
+          eventData={eventData} 
+          onClose={closePopup}
+        />
+      )}
+    </div>
   );
 }
 
 // Event 1 Component
-function Event1() {
-  const navigate = useNavigate();
+function Event1({ onNavigate }) {
   const [timezone, setTimezone] = useState("Asia/Kolkata");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState("");
@@ -32,7 +53,7 @@ function Event1() {
       id: 1,
       name: "John Cena",
       title: "Quarterly Hackathon",
-      image: profile1,
+      image: "/logo.png",
       duration: "30 min",
       timeZone: "Asia/Kolkata",
       time: "03:00 - Tue Jul 15 2025",
@@ -41,7 +62,7 @@ function Event1() {
       id: 2,
       name: "Maria D'Souza",
       title: "Employee Onboarding Day",
-      image: profile2,
+      image: "/maria.jpg",
       duration: "1 Hour",
       timeZone: "Asia/Kolkata",
       time: "15:30 - Tue Jul 15 2025",
@@ -166,12 +187,10 @@ function Event1() {
                   <button
                     className="btn btn-primary px-5 py-2 fw-bold"
                     onClick={() =>
-                      navigate("/event/schedule", {
-                        state: {
-                          date: selectedDate.toDateString(),
-                          time: selectedTime,
-                          timezone,
-                        },
+                      onNavigate('event2', {
+                        date: selectedDate.toDateString(),
+                        time: selectedTime,
+                        timezone,
                       })
                     }
                     disabled={!selectedTime}
@@ -194,10 +213,8 @@ function Event1() {
 }
 
 // Event 2 Component
-function Events2() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { date, time, timezone } = location.state || {};
+function Event2({ onNavigate, eventData }) {
+  const { date, time, timezone } = eventData || {};
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -207,17 +224,15 @@ function Events2() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/event/confirmation", {
-      state: {
-        name,
-        email,
-        eventTitle,
-        conferenceDetails,
-        duration,
-        date,
-        time,
-        timezone,
-      },
+    onNavigate('event3', {
+      name,
+      email,
+      eventTitle,
+      conferenceDetails,
+      duration,
+      date,
+      time,
+      timezone,
     });
   };
 
@@ -234,7 +249,7 @@ function Events2() {
             <div className="card shadow-sm p-4">
               <div className="d-flex align-items-center gap-3 mb-4">
                 <img
-                  src={profile2}
+                  src="/maria.jpg"
                   alt="Organizer"
                   style={{ width: "60px", height: "60px", borderRadius: "50%", objectFit: "cover", border: "2px solid #6A7ADA" }}
                 />
@@ -297,9 +312,8 @@ function Events2() {
   );
 }
 
-// Event 3 Component
-function Event3() {
-  const location = useLocation();
+// Event 3 Popup Component
+function Event3Popup({ eventData, onClose }) {
   const {
     name,
     eventTitle,
@@ -307,44 +321,81 @@ function Event3() {
     date,
     timezone,
     conferenceDetails,
-  } = location.state || {};
+  } = eventData || {};
 
   return (
-    <div className="events-container" style={{ 
-      backgroundColor: '#f8f9fa', 
-      minHeight: '100vh',
-      width: '100%',
-      padding: '20px'
-    }}>
-      <div className="container-fluid">
-        <div className="event-wrapper card p-4 shadow-sm">
-          <div className="event-header text-center mb-4">
-            <img src={profile1} alt="User" className="event-profile" style={{ width: 70, height: 70, borderRadius: "50%" }} />
-            <h2 className="event-heading mt-3">You are scheduled</h2>
-            <p className="event-subtext text-muted">A calendar invitation has been sent to your email address.</p>
-          </div>
+    <div 
+      className="popup-overlay position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center"
+      style={{ 
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+        zIndex: 1050 
+      }}
+      onClick={onClose}
+    >
+      <div 
+        className="popup-content bg-white rounded shadow-lg p-4 mx-3"
+        style={{ 
+          maxWidth: '500px', 
+          width: '100%',
+          maxHeight: '90vh',
+          overflowY: 'auto'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h4 className="mb-0 text-success">Event Scheduled Successfully!</h4>
+          <button 
+            type="button" 
+            className="btn-close" 
+            onClick={onClose}
+            aria-label="Close"
+          ></button>
+        </div>
 
-        <div className="event-card-box">
-          <h4 className="event-title">{eventTitle || "Event Title"}</h4>
-          <div className="d-flex align-items-center mb-3">
+        <div className="text-center mb-4">
+          <img 
+            src="/maria.jpg" 
+            alt="User" 
+            className="rounded-circle mb-3" 
+            style={{ width: 80, height: 80 }} 
+          />
+          <h5 className="text-primary">You are scheduled</h5>
+          <p className="text-muted small">A calendar invitation has been sent to your email address.</p>
+        </div>
+
+        <div className="event-details border rounded p-3 bg-light">
+          <h6 className="fw-bold mb-3 text-dark">{eventTitle || "Event Title"}</h6>
+          
+          <div className="d-flex align-items-center mb-2">
             <i className="bi bi-person-fill me-2 text-primary"></i>
-            <span>{name || "Participant Name"}</span>
+            <span className="small">{name || "Participant Name"}</span>
           </div>
-          <div className="d-flex align-items-center mb-3">
+          
+          <div className="d-flex align-items-center mb-2">
             <FaCalendarAlt className="me-2 text-primary" style={{ minWidth: '16px' }} />
-            <span>{time} - {date}</span>
+            <span className="small">{time} - {date}</span>
           </div>
-          <div className="d-flex align-items-center mb-3">
+          
+          <div className="d-flex align-items-center mb-2">
             <FaGlobe className="me-2 text-primary" style={{ minWidth: '16px' }} />
-            <span>{timezone}</span>
+            <span className="small">{timezone}</span>
           </div>
+          
           <div className="d-flex align-items-center">
             <FaVideo className="me-2 text-primary" style={{ minWidth: '16px' }} />
-            <span>{conferenceDetails}</span>
+            <span className="small">{conferenceDetails || "Web conferencing details provided upon confirmation."}</span>
           </div>
         </div>
+
+        <div className="text-center mt-4">
+          <button 
+            className="btn btn-primary px-4" 
+            onClick={onClose}
+          >
+            Done
+          </button>
+        </div>
       </div>
-    </div>
     </div>
   );
 }
