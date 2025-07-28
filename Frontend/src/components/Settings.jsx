@@ -32,7 +32,7 @@ function Settings() {
       <Container fluid className="settings-container">
         <Row className="justify-content-center">
           <Col lg={8}>
-            <h3 className="settings-title">
+            <h3 className="settings-title" style={{ fontWeight: 'bold', color: '#333', textAlign: 'center', marginTop: '20px'}}>
               <u>Settings</u>
             </h3>
             <ListGroup variant="flush" className="settings-list mt-4">
@@ -86,9 +86,7 @@ function Settings() {
           </Col>
           <Col lg={4} className="text-center d-flex align-items-center">
             <div className="w-100">
-              <img src="/logo.png" alt="HRMS" className="img-fluid mb-3" style={{ maxWidth: '200px' }} />
-              <h5 className="text-primary fw-bold mb-3">Human Resource Management System</h5>
-              <img src="/public/logo.png" alt="Illustration" className="img-fluid" style={{ maxWidth: '300px', opacity: 0.8 }} />
+              <img src="src\assets\hrms_2.png" alt="Illustration" className="img-fluid" style={{ maxWidth: '400px', opacity: 0.85 }} />
             </div>
           </Col>
         </Row>
