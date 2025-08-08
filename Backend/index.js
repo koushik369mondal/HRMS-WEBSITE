@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import eventRoutes from './routes/eventRoutes.js';
 import errorHandler from './middleware/errorHandler.js';
-import './db.js'; // Initialize DB connection
+import './config/database.js'; // Initialize DB connection
 
 dotenv.config();
 
@@ -22,5 +22,8 @@ app.use((req, res) => {
 // Centralized error handler middleware
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📅 Events API: http://localhost:${PORT}/api/events`);
+});
