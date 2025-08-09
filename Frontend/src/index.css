@@ -262,6 +262,7 @@ body {
 }
 
 /* === Event Page New Styling === */
+
 .event-wrapper {
   width: 100%;
   max-width: 700px;
@@ -285,6 +286,7 @@ body {
   box-sizing: border-box;
 }
 
+
 .event-header {
   text-align: center;
   padding: 1rem 2rem;
@@ -296,6 +298,7 @@ body {
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 1rem;
+
 }
 
 .event-heading {
@@ -326,37 +329,21 @@ body {
   color: black;
 }
 
-.event-card-box p,
-.event-card-box ul li span {
+.event-card-box p {
   font-size: 1rem;
   color: #333;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  white-space: normal !important; /* Allow wrapping */
-  word-break: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
 }
 
-/* Ensure icons in p/li */
-.event-card-box i,
-.event-card-box svg {
+.event-card-box i {
   color: black;
 }
 
-/* Make sure .location-text and .meeting-link-text wrap properly */
-.location-text,
-.meeting-link-text {
-  max-width: 100%;
-  white-space: normal !important;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  display: inline-block;
-}
+/* css only for calendar */
 
-/* Responsive calendar styles */
 .react-calendar {
   border: none !important;
   font-family: 'Segoe UI', sans-serif;
@@ -407,102 +394,4 @@ body {
 .react-calendar_month-viewdays_day--weekend {
   color: red !important;
 }
-
-/* ==== Responsive adjustments ==== */
-
-/* Stack sidebar on small screens and remove margin */
-@media (max-width: 768px) {
-  .main-content {
-    margin-left: 0; /* remove sidebar margin */
-    padding: 1rem;
-    min-height: auto;
-  }
-
-  .event-wrapper,
-  .event-card-box {
-    width: 100%;
-    max-width: 100%;
-    padding: 1rem;
-  }
-
-  #root {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    padding: 0.5rem 1rem;
-    overflow-x: auto;
-  }
-
-  .nav-list {
-    display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  .nav-item {
-    flex: 0 0 auto;
-    margin-bottom: 0;
-  }
-}
-
-/* Event card grid adjustment for small screens */
-@media (max-width: 600px) {
-  .row.g-0 {
-    flex-direction: column;
-  }
-
-  .col-lg-4,
-  .col-lg-8 {
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
-  }
-
-  button.btn {
-    width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}
-
-/* Make sure overflow text wraps inside cards / lists */
-.card-body,
-.card,
-.event-card-box,
-ul.list-unstyled {
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
-
-/* Fix very long URLs wrap gracefully */
-a {
-  word-break: break-all;
-}
-
-/* Add some spacing to list strong labels */
-ul.list-unstyled li strong {
-  min-width: 70px;
-  display: inline-block;
-}
-
-/* Additional padding for smaller clickable areas */
-button.btn {
-  min-height: 44px;
-}
-
-/* Reduce font size slightly on very small screens */
-@media (max-width: 400px) {
-  .event-title {
-    font-size: 1.1rem;
-  }
-
-  .event-card-box p,
-  .event-card-box ul li span {
-    font-size: 0.9rem;
-  }
-}
+/*++++this is event css++++*/
