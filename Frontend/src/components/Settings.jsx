@@ -29,7 +29,7 @@ function Settings() {
 
   return (
     <div className={`${darkMode ? 'dark-mode' : ''} ${modals && Object.values(modals).some(Boolean) ? 'blurred-bg' : ''} min-vh-100`}>
-      <Container fluid className="settings-container">
+      <Container fluid className="settings-container" style={{overflowX:'hidden'}}>
         <Row className="justify-content-center">
           <Col lg={8}>
             <h3 className="settings-title" style={{ fontWeight: 'bold', color: '#333', textAlign: 'center', marginTop: '20px'}}>

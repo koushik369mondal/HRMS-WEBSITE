@@ -427,9 +427,9 @@ Right Click Context Menu
 Responsiveness
 ---------------------------------------- */
 @media (max-width: 1024px) {
-    .sidebar {
-        display: none;
-    }
+    // .sidebar {
+    //     display: none;
+    // }
     .chatlist {
         width: 40%;
     }
@@ -439,7 +439,7 @@ Responsiveness
 }
 
 @media (max-width: 768px) {
-    .sidebar,
+    // .sidebar,
     .chatlist {
         display: none;
     }
@@ -490,9 +490,9 @@ Responsiveness
 // ----------------------------------
 // Sidebar (Marking this for later replacement)
 // ----------------------------------
-function Sidebar() {
-  return <div className="sidebar"></div>;
-} // do not touch this it stops running
+// function Sidebar() {
+//   return <div className="sidebar"></div>;
+// } // do not touch this it stops running
 
 // ----------------------------------
 // Chat List Section
@@ -1727,7 +1727,7 @@ function Chat() {
       <style>{styles}</style>
 
       <div className="app-container">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <ChatList selectedChat={selectedChat} onSelectChat={setSelectedChat} />
         <ChatWindow selectedChat={selectedChat} />
       </div>
