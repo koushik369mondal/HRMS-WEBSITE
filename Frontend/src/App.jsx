@@ -28,20 +28,16 @@ function App() {
     }
   };
 
-  return (
-    <div className='d-flex h-100'>
-      <Sidebar activePage={activePage} setActivePage={setActivePage} />
-      <div className="main-content" style={{ 
-        marginLeft: '250px', 
-        width: 'calc(100% - 250px)', 
-        minHeight: '100vh',
-        padding: '20px',
-        backgroundColor: '#f8f9fa'
-      }}>
-        {renderPage()}
-      </div>
+return (
+  <div className='d-flex h-100' style={{ minHeight: '100vh' }}>
+    <div style={{ width: '20%' }}>
+      <Sidebar activePage={activePage} setActivePage={setActivePage} style={{padding: '0%'}} />
     </div>
-  );
+    <div style={{ width: '80%', backgroundColor: '#f8f9fa',}}>
+      {renderPage()}
+    </div>
+  </div>
+);
 }
 
 export default App;

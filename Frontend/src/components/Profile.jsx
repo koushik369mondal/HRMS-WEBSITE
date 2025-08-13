@@ -2,7 +2,7 @@ import React from "react";
 
 const Profile = () => {
   return (
-    <div className="main-content">
+    <div className="main-content" style={{marginLeft: '30px', lineHeight:'1', width:'95%'}}>
       <div className="container py-4">
         <h3 className="fw-bold mb-4">Profile</h3>
         <div className="row">

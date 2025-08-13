@@ -1,9 +1,9 @@
-#root {
-  margin: 0 auto;
+body, html, #root {
+  margin: 0;
   padding: 0;
-  text-align: left;
-  min-height: 100vh;
-  width: 100%;
+  height: 100%;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f6fa;
 }
 
 .logo {
@@ -234,4 +234,17 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  margin-left: 16%;        
+  width: 85%;
+  height: 100vh;          
+  overflow: auto;       
 }
