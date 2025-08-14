@@ -1,115 +1,99 @@
 import React from 'react';
-import {FaTachometerAlt,FaChartBar,FaBookOpen, FaComments, FaUsers, FaCalendarAlt, FaUserCircle,FaCog} from 'react-icons/fa';
+import { FaHome, FaComments, FaUsers, FaBookOpen, FaChartBar, FaCalendarAlt, FaUserCircle, FaCog } from 'react-icons/fa';
+
+const navItems = [
+  { key: 'dashboard', label: 'Dashboard', icon: <FaHome /> },
+  { key: 'chat', label: 'Chat', icon: <FaComments /> },
+  { key: 'employees', label: 'Employees', icon: <FaUsers /> },
+  { key: 'feed', label: 'Feed', icon: <FaBookOpen /> },
+  { key: 'recognition', label: 'Recognition', icon: <FaChartBar /> },
+  { key: 'event', label: 'Event', icon: <FaCalendarAlt /> },
+  { key: 'profile', label: 'Profile', icon: <FaUserCircle /> },
+  { key: 'settings', label: 'Settings', icon: <FaCog /> },
+];
 
 const styles = `
-.side-navbar{
-    width: 250px;
-    min-height: 100vh;
-    background-color: #4c57c1;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-.logo-img {
-    width: 180px;
-}
-
-.profile-container {
-    display: flex;
-    padding: 15px 20px;
-}
-
-.profile-img{
-    width: 55px;
-    height: 55px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 10px;
-    border: 2px solid #ffffff;
-}
-
-.profile-info small{
-    color: aliceblue;
-    font-size: small;
-}
-
-.side-navbar .nav-link {
-  font-size: 16px;
-  padding: 16px;
+/* SidebarStyles.css */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20%;            /* 20% of viewport, or use min-width if you prefer px */
+  min-width: 250px;      /* ensures it never shrinks below 250px */
+  height: 100vh;         /* full viewport height */
+  overflow-y: auto;      /* scrollable if its own content overflows */
+  scrollbar-width: none;
+  background-color: #4c57c1;
   color: white;
-  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+/* nav-link rules stay the same… */
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  font-size: 16px;
+  color: white;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out,
+              border-radius 0.3s ease-in-out,
+              transform 0.3s ease-in-out;
   border-radius: 8px;
-  transition: 
-    background 0.1s ease-in-out,
-    transform 0.4s ease-in-out,
-    border-radius 0.4s ease-in-out;
 }
 
-
-.nav-link:hover{
-    background-color:#0401011f;
-    border-radius: 8px;
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(5px);
 }
-.nav-link.active{
-    background-color: #ffffff;
-    color: #4c57c1 !important;
-    border-radius: 8px;
-    transform: translateX(10px);
+
+.nav-link.active {
+  background-color: white;
+  color: #4c57c1;
+  font-weight: bold;
+  transform: translateX(10px);
+  border-radius: 8px;
 }
 `
-function InjectStyles({ css }) {
-  return <style>{css}</style>;
+function InjectStyles({css}) {
+    return <style>{css}</style>;  
 }
 
-console.log("Sidebar loaded");
-const Sidebar = ( {setActivePage,activePage}) => {
-    return (
-      <>
-      <InjectStyles css={styles} />
-
-        <div className="side-navbar d-flex flex-column flex-shrink-0 p-3">
-
-            {/*HRMS Logo */}
-
-            <div className='logo-container text-center'>
-                <img 
-                    src="/images/logo.png" 
-                    alt='HRMS logo'
-                    className='img-fluid logo-img'/>
-            </div>
-            
-            {/* Profile Info */}
-
-            <div className="profile-container">
-                <div className='profile-img-container d-flex justify-content-center align-items-center me-3'>
-                    <img 
-                    src="/images/maria.jpg" 
-                    alt='Profile'
-                    className='img-fluid profile-img'/>
-                </div>
-                <div className='profile-info'>
-                    <p className='text-white fw-bold mb-0'>Maria</p>
-                    <small>HR Manager</small>
-                </div>
-            </div>
-
-            {/*Navigation items */}
-
-            <ul className='nav flex-column mb-auto'>
-                <li className='nav-item w-100 mb-1'>
-                    <button onClick={() => setActivePage('dashboard')} className={`nav-link text-white w-100 text-start ${activePage === 'dashboard'?'active':''}`}><FaTachometerAlt className='me-2' /><span className="nav-label">Dashboard</span> </button>
-                </li>
-                <li className='w-100 mb-1'><button onClick={() => setActivePage('chat')} className={`nav-link text-white w-100 text-start ${activePage === 'chat'?'active':''}`}><FaComments className='me-2' /><span className="nav-label">Chat</span></button></li>
-                <li className='w-100 mb-1'><button onClick={() => setActivePage('employees')} className={`nav-link text-white w-100 text-start ${activePage === 'employees'?'active':''}`}><FaUsers className='me-2' /><span className="nav-label">Employees</span></button></li>
-                <li className='w-100 mb-1'><button onClick={() => setActivePage('feed')} className={`nav-link text-white w-100 text-start ${activePage === 'feed'?'active':''}`}><FaBookOpen className='me-2' /><span className="nav-label">Feed</span></button></li>
-                <li className='w-100 mb-1'><button onClick={() => setActivePage('recogination')} className={`nav-link text-white w-100 text-start ${activePage === 'recogination'?'active':''}`}><FaChartBar className='me-2' /><span className="nav-label">Recogination</span></button></li>
-                <li className='w-100 mb-1'><button onClick={() => setActivePage('event')} className={`nav-link text-white w-100 text-start ${activePage === 'event'?'active':''}`}><FaCalendarAlt className='me-2' /><span className="nav-label">Event</span></button></li>
-                <li className='w-100 mb-1'><button onClick={() => setActivePage('profile')} className={`nav-link text-white w-100 text-start ${activePage === 'profile'?'active':''}`}><FaUserCircle className='me-2' /><span className="nav-label">Profile</span></button></li>
-                <li className='w-100 mb-1'><button onClick={() => setActivePage('settings')} className={`nav-link text-white w-100 text-start ${activePage === 'settings'?'active':''}`}><FaCog className='me-2' /><span className="nav-label">Settings</span></button></li>
-            </ul>
+const Sidebar = ({ activePage, setActivePage }) => {
+  return (
+    <>
+    <InjectStyles css={styles} />
+    <div className="sidebar d-flex flex-column p-3">
+      <div className="text-center mb-4">
+        <img src="/logo.png" alt="HRMS Logo" style={{ width: '150px' }} />
+      </div>
+      <div className="d-flex align-items-center mb-4">
+        <img src="/maria.jpg" alt="Profile" style={{ width: '50px', borderRadius: '50%', marginRight: '25px', marginLeft: '20px' }} />
+        <div>
+          <p className="mb-0 fw-bold">Maria</p>
+          <small>HR Manager</small>
         </div>
-        </>
-    );
+      </div>
+      <ul className="nav flex-column">
+        {navItems.map(item => (
+          <li key={item.key} className="mb-2">
+            <button
+              className={`nav-link ${activePage === item.key ? 'active' : ''}`}
+              onClick={() => setActivePage(item.key)}
+            >
+              <span className="me-2">{item.icon}</span> {item.label}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+    </>
+  );
 };
+
 export default Sidebar;

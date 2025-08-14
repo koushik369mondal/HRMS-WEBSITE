@@ -1,7 +1,4 @@
-/* ===== Tailwind Base ===== */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Londrina+Sketch&family=Montserrat:wght@100..900&family=Poppins:wght@700&family=Roboto:wght@100..900&family=Silkscreen:wght@400;700&display=swap');
 
 /* ===== Global Variables & Typography ===== */
 :root {
@@ -73,18 +70,40 @@ button:focus-visible {
   }
 }
 
-<<<<<<< HEAD
-/* ===== Tailwind Custom Utility Classes ===== */
+/*HEAD*/
+/* ===== Custom Utility Classes ===== */
 .input {
-  @apply w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-400;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+}
+
+.input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.5);
 }
 
 .btn-purple {
-  @apply bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700;
+  background-color: #7c3aed;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.btn-purple:hover {
+  background-color: #6d28d9;
 }
 
 .btn-light {
-  @apply bg-gray-200 text-black px-6 py-2 rounded hover:bg-gray-300;
+  background-color: #e5e7eb;
+  color: black;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.25rem;
+}
+
+.btn-light:hover {
+  background-color: #d1d5db;
 }
 
 /* ===== App-specific Styles ===== */
@@ -127,542 +146,252 @@ button:focus-visible {
     transform: rotate(360deg);
   }
 }
-=======
-/* ---------------------------------------
-CHAT section
----------------------------------------- */
+/*=======*/
 
-* {
-    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-    box-sizing: border-box;
+/* === Font Variables === */
+:root {
+  --font-main: 'Inter', 'Montserrat', 'Roboto', sans-serif;
+  --font-heading: 'Poppins', sans-serif;
+  --font-logo: 'Silkscreen', cursive;
 }
-/* ---------------------------------------
-Sidebar CSS (Replace this when needed)
----------------------------------------- */
+
+/* === Base Reset === */
+body {
+  font-family: var(--font-main);
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #212529;
+  line-height: 1.6;
+}
+
+#root {
+  display: flex;
+  height: 100vh;
+}
+
+/* === Sidebar === */
 .sidebar {
-    width: 250px;
-    height: 100vh;
-    background-color: #5a6cf3;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 0px 15px;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+  width: 250px;
+  background-color: #8481e2;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
 }
 
-.logo-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
-    text-align: center;
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .logo {
-    width: 200px;
-    height: 100px;
-    border-radius: 2px;
-    margin-bottom: 5px;
-}
-
-.brand-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: #ffffff;
-    line-height: 1.2;
-}
-
-.user-section {
-    display: flex;
-    align-items: center;
-    background-color: #4a5cd4;
-    border-radius: 8px;
-    padding: 10px;
-    margin-bottom: 30px;
-}
-
-.profile-pic {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-}
-
-.user-details {
-    display: flex;
-    flex-direction: column;
-}
-
-.user-name {
-    font-weight: bold;
-    font-size: 15px;
-    margin: 0;
-}
-
-.user-role {
-    font-size: 12px;
-    color: #e0e0e0;
-    margin: 0;
-}
-
-.nav-links {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 14px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 8px;
-    color: white;
-}
-
-.nav-item .icon {
-    margin-right: 10px;
-    font-size: 16px;
-}
-
-.nav-item:hover {
-    background-color: #4a5cd4;
-}
-
-.nav-item.active {
-    background-color: white;
-    color: #5a6cf3;
-    font-weight: bold;
-}
-
-/* ---------------------------------------
-Chat Layout & ChatList
----------------------------------------- */
-.app-container {
-    display: flex;
-    height: 100vh;
-}
-
-.chatlist {
-    padding: 20px;
-    width: 35%;
-    position: relative;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
-}
-
-.chatlist-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.chatlist-heading {
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-.chatlist-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.chat-filter {
-    padding: 6px 10px;
-    font-size: 0.9rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    outline: none;
-    cursor: pointer;
-}
-
-.chatlist-item {
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
-    position: relative;
-}
-
-.chatlist-item:hover {
-    background-color: #f0f0f0;
-}
-
-.icon {
-    font-size: 1.8rem;
-    margin-right: 12px;
-}
-
-.chat-info {
-    flex: 1;
-}
-
-.chat-name {
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.chat-status {
-    font-size: 0.9rem;
-    color: gray;
-}
-
-.chat-time {
-    margin-left: 6px;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    background-color: #0f88f2;
-    border-radius: 50%;
-    position: absolute;
-    right: 12px;
-}
-
-.unread-badge {
-    background-color: #28a745;
-    color: white;
-    border-radius: 12px;
-    padding: 0 8px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    margin-left: 8px;
-    display: inline-block;
-    min-width: 20px;
-    text-align: center;
-    line-height: 1.5;
-}
-
-.chat-search {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 0.9rem;
-}
-
-.chatlist-scroll {
-    flex: 1;
-    overflow-y: auto;
-    margin-top: 1rem;
-    padding-right: 6px;
-}
-
-.chatlist-scroll::-webkit-scrollbar {
-    width: 5px;
-}
-
-.chatlist-scroll::-webkit-scrollbar-thumb {
-    background-color: hsl(0, 0%, 90%);
-    border-radius: 5px;
-}
-
-.chatlist-item.selected {
-    background-color: #e6f0ff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-.chatlist-item.selected .icon {
-    transform: scale(1.05);
-}
-
-.chatlist-item.selected .chat-info {
-    font-weight: 500;
-}
-
-.favourite-star {
-    font-size: 1.1em;
-    color: #ffae00;
-    vertical-align: middle;
-}
-
-.chatlist-item:hover .favourite-star {
-    opacity: 0.85;
-}
-
-/* ---------------------------------------
-Chat Window & Messages
----------------------------------------- */
-.chat-window {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    border-left: 1px solid #ddd;
-    height: 100vh;
-}
-
-.chat-window-inner {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: 0;
-}
-
-.chat-header {
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  width: 175px;
+  object-fit: contain;
 }
 
 .user-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
-.user-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
 }
 
 .user-name {
-    font-weight: 600;
-    font-size: 1rem;
+  font-weight: bold;
+  font-size: 0.95rem;
 }
 
-.user-status {
-    font-size: 0.85rem;
-    color: #666;
+.user-role {
+  font-size: 0.75rem;
+  color: #e0e0e0;
 }
 
-.user-note {
-    font-size: 0.75rem;
-    color: #aaa;
-    max-width: 300px;
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.three-dots {
-    font-size: 1.4rem;
-    cursor: pointer;
-    color: #999;
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: background-color 0.2s ease;
+  color: white;
+  margin-bottom: 8px;
 }
 
-.chat-body {
-    flex-grow: 1;
-    padding: 1rem 2rem;
-    overflow-y: auto;
-    background-color: #fafafa;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+.nav-item .icon svg {
+  color: white;
+  transition: color 0.3s ease;
 }
 
-.message {
-    display: flex;
-    flex-direction: column;
-    max-width: 65%;
+.nav-item:hover {
+  background-color: #9996ea;
 }
 
-.message.sent {
-    align-self: flex-end;
+/* === Active Nav Item === */
+.nav-item.active {
+  background-color: #e3e2f3;
+  border-left: 4px solid #5d5bd7;
+  font-weight: 600;
+  color: #212529;
 }
 
-.message.received {
-    align-self: flex-start;
+.nav-item.active span {
+  color: #212529;
 }
 
-.bubble {
-    padding: 12px 16px;
-    border-radius: 12px;
-    word-break: break-word;
-    font-size: 0.95rem;
-    line-height: 1.4;
+.nav-item.active .icon svg {
+  color: black;
 }
 
-.bubble.purple {
-    background-color: #5c4ce1;
-    color: white;
+/* === Event Page New Styling === */
+
+.event-wrapper {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px; /* reserves space for sidebar */
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-.bubble.gray {
-    background-color: #f1f1f1;
-    color: #333;
-    border: 1px solid #ddd;
+
+.event-header {
+  text-align: center;
+  padding: 1rem 2rem;
 }
 
-.reply-options {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 0.5rem;
-    color: #fff;
-    font-weight: 500;
-    cursor: pointer;
+.event-profile {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+
 }
 
-.timestamp {
-    font-size: 0.75rem;
-    color: #999;
-    margin-top: 4px;
-    text-align: left;
+.event-heading {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
 }
 
-.message.sent .timestamp {
-    text-align: right;
+.event-subtext {
+  font-size: 0.95rem;
+  color: #6c757d;
 }
 
-.chat-footer {
-    padding: 1rem;
-    border-top: 1px solid #eee;
-    background-color: white;
+/* Card Box Styling */
+.event-card-box {
+  background-color: white;
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.send-button {
-    background-color: #5c4ce1 !important;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.event-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: black;
 }
 
-/* ---------------------------------------
-Three Dots Dropdown
----------------------------------------- */
-.dots-wrapper {
-    position: relative;
+.event-card-box p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.dropdown-float {
-    position: absolute;
-    top: 0;
-    right: 120%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    border-radius: 6px;
-    z-index: 100;
+.event-card-box i {
+  color: black;
 }
 
-.dropdown-btn {
-    padding: 0.3rem 0.6rem;
-    font-size: 0.8rem;
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    cursor: pointer;
-    text-align: left;
+/* css only for calendar */
+
+.react-calendar {
+  border: none !important;
+  font-family: 'Segoe UI', sans-serif;
+  width: 100% !important;
 }
 
-.dropdown-btn:hover {
-    background-color: #eaeaea;
+.react-calendar__tile {
+  border-radius: 50% !important;
+  padding: 12px 0;
+  font-weight: 500;
+  color: #1a1a1a;
+  transition: 0.2s ease;
 }
 
-/* ---------------------------------------
-Right Click Context Menu
----------------------------------------- */
-.context-menu {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    list-style: none;
-    padding: 0.5rem 0;
-    margin: 0;
-    z-index: 2000;
-    width: 150px;
-    border-radius: 4px;
-    position: absolute;
+.react-calendar__tile--now {
+  background: #e5f0ff !important;
+  color: #007bff !important;
+  border-radius: 50%;
 }
 
-.context-menu li {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    cursor: pointer;
-    user-select: none;
+.react-calendar__tile--active {
+  background: #0066ff !important;
+  color: #fff !important;
+  border-radius: 50%;
 }
 
-.context-menu li:hover {
-    background-color: #f5f5f5;
+.react-calendar__tile:enabled:hover {
+  background: #cce5ff !important;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-/* ---------------------------------------
-Responsiveness
----------------------------------------- */
-@media (max-width: 1024px) {
-    .sidebar {
-        display: none;
-    }
-    .chatlist {
-        width: 40%;
-    }
-    .chat-window {
-        width: 60%;
-    }
+.react-calendar__navigation button {
+  background: none;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #222;
 }
 
-@media (max-width: 768px) {
-    .sidebar,
-    .chatlist {
-        display: none;
-    }
-    .chat-window {
-        width: 100%;
-        height: 100vh;
-        margin: 0;
-    }
-}
-/*input box*/
-.chat-footer {
-    padding: 1rem;
-    border-top: 1px solid #eee;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.react-calendar_month-view_weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #777;
 }
 
-.input-group {
-    width: 100%;   /* ⬅️ Increase width here */
-    display: flex;
-    max-width: 800px; /* Optional limit for desktop */
+.react-calendar_month-viewdays_day--weekend {
+  color: red !important;
 }
-
-.input-group .form-control {
-    flex: 1; /* Let input expand fully */
-    border-radius: 20px 0 0 20px;
-    border: 1px solid #ccc;
-    padding: 10px 15px;
-}
-
-.input-group .btn {
-    border-radius: 0 20px 20px 0;
-    background-color: #5c4ce1;
-    color: white;
-    padding: 0 25px; /* Make button wider */
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.input-group .btn:hover {
-    background-color: #4b3cd1;
-}
->>>>>>> b85f6efc7392239bc27d0f14e5e692b3cb731ddf
-
-/* ---------------------------------------
-CHAT section end
----------------------------------------- */
+/*++++this is event css++++*/
