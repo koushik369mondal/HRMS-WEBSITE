@@ -1467,15 +1467,6 @@ function ChatWindow({ selectedChat }) {
           >
             Delete
           </li>
-
-          <li
-            onClick={() => {
-              setPinnedMessage(contextMenu.message);
-              setContextMenu(null);
-            }}
-          >
-            Pin
-          </li>
         </ul>
       )}
 
