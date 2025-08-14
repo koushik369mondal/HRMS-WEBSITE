@@ -8,9 +8,15 @@ import { Toast } from 'react-bootstrap';
 
 
 function Settings() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    // Load from localStorage, default to false
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const toggleDarkMode = () => {
-    setDarkMode((prev) => !prev);
+    setDarkMode((prev) => {
+      localStorage.setItem('darkMode', !prev);
+      return !prev;
+    });
   };
   const [modals, setModals] = useState({});
   const [notification, setNotification] = useState(false);
