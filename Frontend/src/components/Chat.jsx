@@ -3,6 +3,9 @@ import { Modal, Button, InputGroup, Form } from "react-bootstrap";
 import { ThreeDotsVertical, SendFill } from "react-bootstrap-icons";
 import Picker from "@emoji-mart/react";
 import emojiData from "@emoji-mart/data";
+import { BsEmojiSmile, BsMicFill } from "react-icons/bs";
+import { FiPaperclip } from "react-icons/fi";
+import { BsTelephoneFill, BsCameraVideoFill } from "react-icons/bs";
 
 const styles = `
 * {
@@ -350,12 +353,10 @@ background: #4C57C1; /* HRMS Sidebar Blue */
 }
 
 .send-button {
-    background-color: #5c4ce1 !important;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: linear-gradient(90deg, #4C57C1, #5C4CE1) !important;
 }
+
+  
 
 /* ---------------------------------------
 Three Dots Dropdown
@@ -1338,7 +1339,12 @@ function ChatWindow({ selectedChat }) {
 
             <div ref={menuRef} className="dots-wrapper">
               <div
-                style={{ display: "flex", alignItems: "center", gap: "10px",marginright:"10px" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginright: "10px",
+                }}
               >
                 <div
                   className="call-buttons"
@@ -1346,18 +1352,18 @@ function ChatWindow({ selectedChat }) {
                 >
                   <Button
                     variant="outline-info"
-                    style={{ border: "1px solid white" }}
+                    style={{ border: "1px solid rgba(255, 255, 255, 0.4)" }}
                     onClick={() => initiateCall("voice")}
                   >
-                    📞
+                    <BsTelephoneFill size={18} />
                   </Button>
 
                   <Button
                     variant="outline-success"
-                    style={{ border: "1px solid white" }}
+                    style={{ border: "1px solid rgba(255, 255, 255, 0.4)" }}
                     onClick={() => initiateCall("video")}
                   >
-                    📹
+                    <BsCameraVideoFill size={18} />
                   </Button>
 
                   <ThreeDotsVertical
@@ -1511,7 +1517,11 @@ function ChatWindow({ selectedChat }) {
         <Modal.Body className="text-center">
           <p>Ringing {selectedChat}...</p>
           <div style={{ fontSize: "2rem" }}>
-            {incomingCall === "video" ? "📹" : "📞"}
+            {incomingCall === "video" ? (
+              <BsCameraVideoFill />
+            ) : (
+              <BsTelephoneFill />
+            )}
           </div>
         </Modal.Body>
       </Modal>
@@ -1571,6 +1581,18 @@ function InputBox({ onSend }) {
   const [inputValue, setInputValue] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const fileInputRef = useRef(null);
+  const emojiRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutsideEmoji(event) {
+      if (emojiRef.current && !emojiRef.current.contains(event.target)) {
+        setShowEmojiPicker(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutsideEmoji);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideEmoji);
+    };
+  }, []);
 
   // 🎤 Voice note state/hooks
   const [isRecording, setIsRecording] = useState(false);
@@ -1621,53 +1643,106 @@ function InputBox({ onSend }) {
   return (
     <div className="chat-footer" style={{ position: "relative" }}>
       <InputGroup>
-        <Button
-          variant="light"
-          onClick={() => setShowEmojiPicker((prev) => !prev)}
+        <div
           style={{
-            borderRadius: "20px 0 0 20px",
-            borderRight: "none",
-            backgroundColor: "lightgrey",
-          }}
-          title="Toggle Emoji Picker"
-        >
-          😊
-        </Button>
+            display: "flex",
+            background: "#4C57C1",
+            borderTopLeftRadius: "20px",
+            borderBottomLeftRadius: "20px",
+            borderTopRightRadius: "0", // <-- right corners flat
+            borderBottomRightRadius: "0",
 
-        <Button
-          variant="light"
-          onClick={() => fileInputRef.current.click()}
-          style={{
-            borderRadius: 0,
-            borderLeft: "none",
-            borderRight: "none",
-            backgroundColor: "lightgrey",
+            overflow: "hidden",
           }}
-          title="Attach File"
         >
-          📎
-        </Button>
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={onFileChange}
-        />
+          <Button
+            onClick={() => setShowEmojiPicker((prev) => !prev)}
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderTopLeftRadius: "9999px", // left round
+              borderBottomLeftRadius: "9999px",
+              borderTopRightRadius: "0",
+              borderBottomRightRadius: "0",
+              padding: "8px 16px",
+              transition: "background 0.2s ease",
+              background: "transparent",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.15)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}
+            title="Toggle Emoji Picker"
+          >
+            <BsEmojiSmile size={20} />
+          </Button>
 
-        {/* 🎙️ Voice note recording button */}
-        <Button
-          variant="light"
-          onClick={startRecording}
-          style={{
-            borderRadius: 0,
-            borderLeft: "none",
-            backgroundColor: isRecording ? "#ffcccc" : "lightgrey",
-          }}
-          title="Record Voice Note"
-        >
-          🎙️
-        </Button>
+          <Button
+            onClick={() => fileInputRef.current.click()}
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "0",
+              padding: "8px 16px",
+              transition: "background 0.2s ease",
+              background: "transparent",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(0,0,0,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}
+            title="Attach File"
+          >
+            <FiPaperclip size={20} />
+          </Button>
 
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={onFileChange}
+          />
+
+          <Button
+            onClick={startRecording}
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "0", // flat
+              padding: "8px 16px",
+              transition: "background 0.2s ease",
+              background: isRecording ? "rgb(255, 77, 77)" : "transparent",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = isRecording
+                ? "rgb(255, 77, 77)"
+                : "rgba(0,0,0,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = isRecording
+                ? "rgb(255, 77, 77)"
+                : "transparent";
+            }}
+            title="Record Voice Note"
+          >
+            <BsMicFill size={20} />
+          </Button>
+        </div>
+
+        {/* Message Input Field */}
         <Form.Control
           placeholder="What would you like to say?"
           value={inputValue}
@@ -1678,11 +1753,16 @@ function InputBox({ onSend }) {
           onClick={() => showEmojiPicker && setShowEmojiPicker(false)}
           onKeyDown={(e) => e.key === "Enter" && handleSendClick()}
           style={{
-            borderRadius: "0 20px 20px 0",
+            borderRadius: "0",
             backgroundColor: "hsla(0, 0%, 97%, 1.00)",
+
+            border: "1px solid #ccc", // Always show a light grey border
+            outline: "none", // Remove default browser outline on focus
+            boxShadow: "none", // Remove Bootstrap's blue glow on focus
           }}
         />
 
+        {/* Send Button */}
         <Button
           variant="primary"
           className="send-button"
@@ -1692,8 +1772,10 @@ function InputBox({ onSend }) {
         </Button>
       </InputGroup>
 
+      {/* Emoji Picker Dropdown */}
       {showEmojiPicker && (
         <div
+          ref={emojiRef}
           style={{
             position: "absolute",
             bottom: "60px",
