@@ -10,6 +10,30 @@ const getAvatarUrl = (organizer) =>
     organizer || "?"
   )}&background=4c57c1&color=fff&size=64`;
 
+// Default events to show when API fails or no data is available
+const defaultEvents = [
+  {
+    id: "default-1",
+    title: "AI Masterclass",
+    organizer: "Kaushik Mandal",
+    duration: 45,
+    date: "2026-02-28T11:59:00.000Z",
+    mode_of_event: "online",
+    timezone: "Asia/Kolkata",
+    meeting_link: "https://meet.example.com/ai-masterclass"
+  },
+  {
+    id: "default-2", 
+    title: "Web Dev",
+    organizer: "Viky Deka",
+    duration: 300, // 5 hours = 300 minutes
+    date: "2025-08-15T00:00:00.000Z",
+    mode_of_event: "online",
+    timezone: "Europe/London",
+    meeting_link: "https://meet.example.com/web-dev"
+  }
+];
+
 export default function Events() {
   const [currentStep, setCurrentStep] = useState("event1");
   const [eventData, setEventData] = useState({});
@@ -30,9 +54,18 @@ export default function Events() {
     setError(null);
     try {
       const res = await axios.get("http://localhost:5000/api/events");
-      setEvents(res.data.data || []);
+      const apiEvents = res.data.data || [];
+      
+      // If no events from API, use default events
+      if (apiEvents.length === 0) {
+        setEvents(defaultEvents);
+      } else {
+        setEvents(apiEvents);
+      }
     } catch {
-      setError("Failed to load events");
+      // On error, show default events instead of error message
+      setEvents(defaultEvents);
+      // setError("Failed to load events"); // Removed to show default events instead
     } finally {
       setLoading(false);
     }
@@ -160,26 +193,6 @@ function Event1({ onNavigate, events, loading, error, isDarkMode }) {
             <div className="text-center p-4">
               <div className={`spinner-border ${isDarkMode ? 'text-light' : 'text-primary'}`} role="status" />
               <p className={`mt-3 fs-5 ${isDarkMode ? 'text-light' : 'text-muted'}`}>Loading events...</p>
-            </div>
-          )}
-
-          {error && (
-            <div
-              className="alert alert-danger text-center"
-              role="alert"
-              style={{ fontWeight: "600" }}
-            >
-              {error}
-            </div>
-          )}
-
-          {!loading && !error && events.length === 0 && (
-            <div
-              className="alert alert-info text-center fs-5"
-              role="alert"
-              style={{ fontWeight: "600" }}
-            >
-              No events found. Create your first event!
             </div>
           )}
 
