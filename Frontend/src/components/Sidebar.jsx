@@ -30,17 +30,14 @@ const styles = `
   position: fixed;
   top: 0;
   left: 0;
-  width: 20%;
-  min-width: 250px;
   height: 100vh;
   overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
   background-color: #4c57c1;
   color: white;
   transition: all 0.3s ease-in-out;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   z-index: 45;
+  width: 250px;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -77,32 +74,71 @@ const styles = `
   border-radius: 8px;
 }
 
-.mobile-menu-button {
-  transition: all 0.3s ease-in-out;
+.hamburger-button {
+  display: block;
 }
 
-.mobile-menu-button:hover {
-  transform: scale(1.05);
+.sidebar-content {
+  width: 100%;
+  background-color: rgb(248, 249, 250);
+  padding: 1rem;
+  margin-left: 0;
 }
 
-@media (max-width: 767px) {
+/* Mobile & Tablet */
+@media (max-width: 1023px) {
   .sidebar {
-    width: 250px;
     transform: translateX(-100%);
-    z-index: 45;
+    width: 250px;
   }
-  
+
   .sidebar.mobile-open {
     transform: translateX(0);
-    z-index: 45;
+  }
+
+  .sidebar-content {
+    margin-left: 0;
   }
 }
 
-@media (min-width: 768px) {
+/* Desktop: 1280px → 20% */
+@media (min-width: 1024px) and (max-width: 1439px) {
   .sidebar {
-    position: fixed;
-    transform: translateX(0);
-    z-index: 45;
+    width: 20%;
+  }
+
+  .sidebar-content {
+    margin-left: 20%;
+  }
+}
+
+/* Desktop: 1440px to 1919px → interpolate */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  .sidebar {
+    width: calc(20% - ((100vw - 1280px) * 0.01));
+  }
+
+  .sidebar-content {
+    margin-left: calc(20% - ((100vw - 1280px) * 0.01));
+  }
+}
+
+/* Desktop: 1920px and above → 16% */
+@media (min-width: 1920px) {
+  .sidebar {
+    width: 16%;
+  }
+
+  .sidebar-content {
+    margin-left: 16%;
+  }
+
+  .hamburger-button {
+    display: none;
+  }
+
+  .overlay {
+    display: none;
   }
 }
 `
@@ -129,7 +165,7 @@ const Sidebar = ({ activePage, setActivePage }) => {
 
       <button
         onClick={toggleMobileMenu}
-        className="xl:hidden"
+        className="hamburger-button"
         style={{
           position: "fixed",
           top: "16px",
@@ -161,6 +197,7 @@ const Sidebar = ({ activePage, setActivePage }) => {
 
       {isMobileMenuOpen && (
         <div
+          className="overlay"
           style={{
             position: "fixed",
             top: 0,
@@ -170,7 +207,6 @@ const Sidebar = ({ activePage, setActivePage }) => {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
             zIndex: 40,
           }}
-          className="xl:hidden"
           onClick={toggleMobileMenu}
         />
       )}
