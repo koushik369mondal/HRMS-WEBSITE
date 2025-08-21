@@ -24,13 +24,55 @@ const defaultEvents = [
   },
   {
     id: "default-2", 
-    title: "Web Dev",
+    title: "Web3 & Blockchain",
     organizer: "Viky Deka",
     duration: 300, // 5 hours = 300 minutes
     date: "2025-08-15T00:00:00.000Z",
     mode_of_event: "online",
     timezone: "Europe/London",
     meeting_link: "https://meet.example.com/web-dev"
+  },
+  {
+    id: "default-3",
+    title: "Data Science Workshop",
+    organizer: "Decendman Pothmi",
+    duration: 120, // 2 hours
+    date: "2025-09-10T14:30:00.000Z",
+    mode_of_event: "hybrid",
+    timezone: "America/New_York",
+    meeting_link: "https://meet.example.com/data-science",
+    location: "Tech Hub, 123 Innovation Street, New York"
+  },
+  {
+    id: "default-4",
+    title: "Mobile App Development",
+    organizer: "Lungsom Lamino",
+    duration: 180, // 3 hours
+    date: "2025-10-05T09:00:00.000Z",
+    mode_of_event: "offline",
+    timezone: "Asia/Tokyo",
+    location: "Development Center, 456 Code Avenue, Tokyo"
+  },
+  {
+    id: "default-5",
+    title: "Cloud Computing Fundamentals",
+    organizer: "Pranab Mahananda",
+    duration: 90, // 1.5 hours
+    date: "2025-11-20T16:45:00.000Z",
+    mode_of_event: "online",
+    timezone: "Europe/Berlin",
+    meeting_link: "https://meet.example.com/cloud-computing"
+  },
+  {
+    id: "default-6",
+    title: "UI/UX Design Bootcamp",
+    organizer: "Karishma Patel",
+    duration: 240, // 4 hours
+    date: "2025-12-08T10:15:00.000Z",
+    mode_of_event: "hybrid",
+    timezone: "Asia/Dubai",
+    meeting_link: "https://meet.example.com/ui-ux-design",
+    location: "Design Studio, 789 Creative Plaza, Dubai"
   }
 ];
 
