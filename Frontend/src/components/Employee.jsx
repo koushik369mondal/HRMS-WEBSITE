@@ -129,7 +129,7 @@ const Employee = () => {
                 <button className="btn btn-outline-light w-100">22 Nov. 2024</button>
               </div>
               <div className="col-md-3">
-                <Form.Control placeholder="Search" className="bg-transparent text-white" />
+                <Form.Control placeholder="Search" className="bg-transparent text-white white-placeholder"/>
               </div>
               <div className="col-md-3">
                 <Form.Select className="bg-transparent text-white">
