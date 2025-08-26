@@ -3,12 +3,46 @@ import { Modal, Button, InputGroup, Form } from "react-bootstrap";
 import { ThreeDotsVertical, SendFill } from "react-bootstrap-icons";
 import Picker from "@emoji-mart/react";
 import emojiData from "@emoji-mart/data";
+import { BsEmojiSmile, BsMicFill } from "react-icons/bs";
+import { FiPaperclip } from "react-icons/fi";
+import { BsTelephoneFill, BsCameraVideoFill } from "react-icons/bs";
 
 const styles = `
 * {
     font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     box-sizing: border-box;
 }
+    /* 🌙 Profile Modal – Dark Mode (scoped, no side-effects) */
+.profile-modal.dark .modal-content {
+  background-color: #141414;
+  color: #e0e0e0;
+}
+
+.profile-modal.dark .modal-header,
+.profile-modal.dark .modal-footer {
+  border-color: #333;
+}
+
+.profile-modal.dark .modal-title {
+  color: #ffffff;
+}
+
+.profile-modal.dark .btn-secondary {
+  background-color: #2a2a2a;
+  border-color: #444;
+}
+
+.profile-modal.dark .btn-secondary:hover {
+  background-color: #333;
+  border-color: #555;
+}
+
+/* Close (×) button visible in dark */
+.profile-modal.dark .btn-close {
+  filter: invert(1);
+  opacity: 0.85;
+}
+
 
 html, body {
     margin: 0;
@@ -58,9 +92,10 @@ Chat Layout & ChatList
 }
 
 .chat-filter {
-    padding: 6px 10px;
+    padding: 6px 6px;
     font-size: 0.9rem;
-    border: 1px solid #ccc;
+    border: 0.5px solid #ccc;
+    background-color:white;
     border-radius: 6px;
     outline: none;
     cursor: pointer;
@@ -113,7 +148,7 @@ Chat Layout & ChatList
     position: absolute;
     right: 12px;
 }
-/* ---- WhatsApp-like inline edit textarea ---- */
+/* ----  inline edit text area ---- */
 .edit-textarea {
   border: none;               /* Remove border */
   background: transparent;    /* Keep same bubble background */
@@ -350,12 +385,10 @@ background: #4C57C1; /* HRMS Sidebar Blue */
 }
 
 .send-button {
-    background-color: #5c4ce1 !important;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background: linear-gradient(90deg, #4C57C1, #5C4CE1) !important;
 }
+
+  
 
 /* ---------------------------------------
 Three Dots Dropdown
@@ -484,6 +517,103 @@ Responsiveness
 }
 .input-group .btn:hover {
     background-color: #4b3cd1;
+}
+
+ /* 🌙 Dark Mode */
+.app-container.dark {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+.app-container.dark .chat-filter {
+    padding: 6px 6px;
+    font-size: 0.9rem;
+    border: 1px solid #121212ff;
+    background-color: #151515ff;
+    color:antiquewhite;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
+
+.app-container.dark .chatlist {
+  background-color: #181818;
+  color:;
+}
+.app-container.dark .chatlist-item:hover {
+    background-color: #282828ff;
+}
+
+.app-container.dark .chat-window {
+  background-color: #181818;
+  border-left: 1px solid #333;
+  border-right: 5px solid #333;
+}
+
+.app-container.dark .chat-header {
+  background: #301968ff !important;
+  color: #ffffffff;
+}
+
+.app-container.dark .chat-body {
+  background-color: #121212;
+}
+
+.app-container.dark .bubble.gray {
+  background-color: #2a2a2a;
+  color: #ddd;
+  border: 1px solid #444;
+}
+
+.app-container.dark .bubble.purple {
+  background-color: #292267ff;
+  color: #fff;
+}
+
+.app-container.dark .chat-footer {
+  background-color: #1e1e1e;
+}
+
+.app-container.dark .form-control {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #444;
+}
+
+.app-container.dark .form-control::placeholder {
+  color: #aaa;
+}
+
+.app-container.dark .chatlist-item.selected {
+    background-color: #000000ff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/*input box*/
+.app-container.dark .input-group .form-control {
+    flex: 1; /* Let input expand fully */
+    border-radius: 20px 0 0 20px;
+    color:Black;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+}
+
+/*right click drop */
+.app-container.dark .context-menu {
+    background-color: #141414ff;
+    border: 1px solid #7d7d7dff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    z-index: 2000;
+    width: 150px;
+    border-radius: 4px;
+    position: absolute;
+}
+.app-container.dark .context-menu li:hover {
+    background-color: #101156ff;
 }
 `;
 
@@ -640,7 +770,7 @@ const chatData = [
   },
 ];
 
-function ChatList({ onSelectChat, selectedChat }) {
+function ChatList({ selectedChat, onSelectChat, darkMode, setDarkMode }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("all");
   const [chats, setChats] = useState(chatData);
@@ -691,7 +821,20 @@ function ChatList({ onSelectChat, selectedChat }) {
 
   // ✅ Delete function
   const deleteChat = (chatName) => {
-    setChats((prevChats) => prevChats.filter((chat) => chat.name !== chatName));
+    // 1️⃣ Left-side chat list update
+    const updatedChats = chats.filter((chat) => chat.name !== chatName);
+    setChats(updatedChats);
+
+    // 2️⃣ Right-side chat update
+    if (selectedChat === chatName) {
+      if (updatedChats.length > 0) {
+        // next available chat
+        onSelectChat(updatedChats[0].name);
+      } else {
+        // if list empty
+        onSelectChat(null);
+      }
+    }
   };
 
   const filteredChats = chats
@@ -727,23 +870,36 @@ function ChatList({ onSelectChat, selectedChat }) {
     window.addEventListener("click", handleClickOutside);
     return () => window.removeEventListener("click", handleClickOutside);
   }, []);
+  // ✅ Close ChatList context menu when another menu opens
+  useEffect(() => {
+    const closeAllMenus = () => {
+      setContextMenu((prev) => ({ ...prev, visible: false }));
+    };
+    window.addEventListener("app:close-all-menus", closeAllMenus);
+    return () =>
+      window.removeEventListener("app:close-all-menus", closeAllMenus);
+  }, []);
 
   return (
     <div className="chatlist">
       <div className="chatlist-header">
         <h3 className="chatlist-heading">Messages</h3>
-        <select
-          className="chat-filter"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        >
-          <option value="all">🔽 All</option>
-          <option value="groups">👥 Groups</option>
-          <option value="unread">🔵 Unread</option>
-          <option value="read">✅ Read</option>
-          <option value="favourites">⭐ Favourites</option>
-          <option value="archived">📁 Archived</option>
-        </select>
+
+        {/* 👇 Wrap filter + darkmode button together */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <select
+            className="chat-filter"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          >
+            <option value="all">🔽 All</option>
+            <option value="groups">👥 Groups</option>
+            <option value="unread">🔵 Unread</option>
+            <option value="read">✅ Read</option>
+            <option value="favourites">⭐ Favourites</option>
+            <option value="archived">📁 Archived</option>
+          </select>
+        </div>
       </div>
 
       <input
@@ -773,6 +929,8 @@ function ChatList({ onSelectChat, selectedChat }) {
               }}
               onContextMenu={(e) => {
                 e.preventDefault();
+                window.dispatchEvent(new Event("app:close-all-menus")); // ✅ add this line
+
                 setContextMenu({
                   visible: true,
                   x: e.clientX,
@@ -824,7 +982,6 @@ function ChatList({ onSelectChat, selectedChat }) {
               top: `${contextMenu.y}px`,
               left: `${contextMenu.x}px`,
               position: "fixed", // ✅ FIXED position
-              backgroundColor: "#fff",
               border: "1px solid #ccc",
               borderRadius: "4px",
               boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
@@ -1036,14 +1193,14 @@ const userProfiles = {
   },
 };
 
-function ChatWindow({ selectedChat }) {
+function ChatWindow({ selectedChat, darkMode }) {
   const profile = userProfiles[selectedChat] || {};
   const [messages, setMessages] = useState(
     selectedChat === "Meg Griffin"
       ? [
           {
             id: 1,
-            text: "Hey Eric, have you collaborated with Fred yet?\nNot yet    Yes",
+            text: "Hey Eric, have you collaborated with Fred yet?",
             sender: "other",
             specialReply: true,
             time: "10:30 AM",
@@ -1076,7 +1233,7 @@ function ChatWindow({ selectedChat }) {
         ? [
             {
               id: 1,
-              text: "Hey Eric, have you collaborated with Fred yet?\nNot yet    Yes",
+              text: "Hey Eric, have you collaborated with Fred yet?",
               sender: "other",
               specialReply: true,
               time: "10:30 AM",
@@ -1095,7 +1252,7 @@ function ChatWindow({ selectedChat }) {
             },
             {
               id: 4,
-              text: "Y fear when Chris is here... I’ve taught you well. You have the right instincts...",
+              text: "Y fear when Chris is here... I've taught you well. You have the right instincts...",
               sender: "other",
               time: "10:35 AM",
             },
@@ -1105,6 +1262,17 @@ function ChatWindow({ selectedChat }) {
   }, [selectedChat]);
 
   const [showMenu, setShowMenu] = useState(false);
+  // ✅ Close Message context menu + 3-dots menu when another menu opens
+  useEffect(() => {
+    const closeAllMenus = () => {
+      setContextMenu(null);
+      setShowMenu(false);
+    };
+    window.addEventListener("app:close-all-menus", closeAllMenus);
+    return () =>
+      window.removeEventListener("app:close-all-menus", closeAllMenus);
+  }, []);
+
   const [showProfile, setShowProfile] = useState(false);
   const [contextMenu, setContextMenu] = useState(null);
   // Close context menu when clicking outside
@@ -1261,6 +1429,8 @@ function ChatWindow({ selectedChat }) {
 
   const handleContextMenu = (e, message) => {
     e.preventDefault();
+    window.dispatchEvent(new Event("app:close-all-menus")); // ✅ add here
+
     const rect = e.currentTarget.getBoundingClientRect();
     const left = message.sender === "me" ? rect.left - 160 : rect.right + 10;
     setContextMenu({
@@ -1338,7 +1508,12 @@ function ChatWindow({ selectedChat }) {
 
             <div ref={menuRef} className="dots-wrapper">
               <div
-                style={{ display: "flex", alignItems: "center", gap: "10px",marginright:"10px" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginright: "10px",
+                }}
               >
                 <div
                   className="call-buttons"
@@ -1346,24 +1521,29 @@ function ChatWindow({ selectedChat }) {
                 >
                   <Button
                     variant="outline-info"
-                    style={{ border: "1px solid white" }}
+                    style={{ border: "1px solid rgba(255, 255, 255, 0.4)" }}
                     onClick={() => initiateCall("voice")}
                   >
-                    📞
+                    <BsTelephoneFill size={18} />
                   </Button>
 
                   <Button
                     variant="outline-success"
-                    style={{ border: "1px solid white" }}
+                    style={{ border: "1px solid rgba(255, 255, 255, 0.4)" }}
                     onClick={() => initiateCall("video")}
                   >
-                    📹
+                    <BsCameraVideoFill size={18} />
                   </Button>
 
                   <ThreeDotsVertical
                     className="three-dots"
-                    onClick={() => setShowMenu(!showMenu)}
+                    onClick={() => {
+                      if (!showMenu)
+                        window.dispatchEvent(new Event("app:close-all-menus")); // ✅ add here
+                      setShowMenu(!showMenu);
+                    }}
                   />
+
                   {showMenu && (
                     <div className="dropdown-float">
                       <button className="dropdown-btn">Delete</button>
@@ -1470,7 +1650,12 @@ function ChatWindow({ selectedChat }) {
         </ul>
       )}
 
-      <Modal show={showProfile} onHide={() => setShowProfile(false)} centered>
+      <Modal
+        show={showProfile}
+        onHide={() => setShowProfile(false)}
+        centered
+        dialogClassName={`profile-modal ${darkMode ? "dark" : ""}`}
+      >
         <Modal.Header closeButton>
           <Modal.Title>User Profile</Modal.Title>
         </Modal.Header>
@@ -1511,7 +1696,11 @@ function ChatWindow({ selectedChat }) {
         <Modal.Body className="text-center">
           <p>Ringing {selectedChat}...</p>
           <div style={{ fontSize: "2rem" }}>
-            {incomingCall === "video" ? "📹" : "📞"}
+            {incomingCall === "video" ? (
+              <BsCameraVideoFill />
+            ) : (
+              <BsTelephoneFill />
+            )}
           </div>
         </Modal.Body>
       </Modal>
@@ -1554,9 +1743,7 @@ function Message({
         ) : (
           <div>{text.split("\n")[0]}</div>
         )}
-        {specialReply && (
-          <div className="reply-options">Not yet &nbsp;&nbsp; Yes</div>
-        )}
+        {specialReply && <div className="reply-options"> &nbsp;&nbsp;</div>}
       </div>
       <div className="timestamp">{time}</div>
     </div>
@@ -1571,6 +1758,18 @@ function InputBox({ onSend }) {
   const [inputValue, setInputValue] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const fileInputRef = useRef(null);
+  const emojiRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutsideEmoji(event) {
+      if (emojiRef.current && !emojiRef.current.contains(event.target)) {
+        setShowEmojiPicker(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutsideEmoji);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideEmoji);
+    };
+  }, []);
 
   // 🎤 Voice note state/hooks
   const [isRecording, setIsRecording] = useState(false);
@@ -1621,53 +1820,106 @@ function InputBox({ onSend }) {
   return (
     <div className="chat-footer" style={{ position: "relative" }}>
       <InputGroup>
-        <Button
-          variant="light"
-          onClick={() => setShowEmojiPicker((prev) => !prev)}
+        <div
           style={{
-            borderRadius: "20px 0 0 20px",
-            borderRight: "none",
-            backgroundColor: "lightgrey",
-          }}
-          title="Toggle Emoji Picker"
-        >
-          😊
-        </Button>
+            display: "flex",
+            background: "#4C57C1",
+            borderTopLeftRadius: "20px",
+            borderBottomLeftRadius: "20px",
+            borderTopRightRadius: "0", // <-- right corners flat
+            borderBottomRightRadius: "0",
 
-        <Button
-          variant="light"
-          onClick={() => fileInputRef.current.click()}
-          style={{
-            borderRadius: 0,
-            borderLeft: "none",
-            borderRight: "none",
-            backgroundColor: "lightgrey",
+            overflow: "hidden",
           }}
-          title="Attach File"
         >
-          📎
-        </Button>
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={onFileChange}
-        />
+          <Button
+            onClick={() => setShowEmojiPicker((prev) => !prev)}
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderTopLeftRadius: "9999px", // left round
+              borderBottomLeftRadius: "9999px",
+              borderTopRightRadius: "0",
+              borderBottomRightRadius: "0",
+              padding: "8px 16px",
+              transition: "background 0.2s ease",
+              background: "transparent",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.15)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}
+            title="Toggle Emoji Picker"
+          >
+            <BsEmojiSmile size={20} />
+          </Button>
 
-        {/* 🎙️ Voice note recording button */}
-        <Button
-          variant="light"
-          onClick={startRecording}
-          style={{
-            borderRadius: 0,
-            borderLeft: "none",
-            backgroundColor: isRecording ? "#ffcccc" : "lightgrey",
-          }}
-          title="Record Voice Note"
-        >
-          🎙️
-        </Button>
+          <Button
+            onClick={() => fileInputRef.current.click()}
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "0",
+              padding: "8px 16px",
+              transition: "background 0.2s ease",
+              background: "transparent",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(0,0,0,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+            }}
+            title="Attach File"
+          >
+            <FiPaperclip size={20} />
+          </Button>
 
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={onFileChange}
+          />
+
+          <Button
+            onClick={startRecording}
+            style={{
+              color: "white",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "0", // flat
+              padding: "8px 16px",
+              transition: "background 0.2s ease",
+              background: isRecording ? "rgb(255, 77, 77)" : "transparent",
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = isRecording
+                ? "rgb(255, 77, 77)"
+                : "rgba(0,0,0,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = isRecording
+                ? "rgb(255, 77, 77)"
+                : "transparent";
+            }}
+            title="Record Voice Note"
+          >
+            <BsMicFill size={20} />
+          </Button>
+        </div>
+
+        {/* Message Input Field */}
         <Form.Control
           placeholder="What would you like to say?"
           value={inputValue}
@@ -1678,11 +1930,16 @@ function InputBox({ onSend }) {
           onClick={() => showEmojiPicker && setShowEmojiPicker(false)}
           onKeyDown={(e) => e.key === "Enter" && handleSendClick()}
           style={{
-            borderRadius: "0 20px 20px 0",
+            borderRadius: "0",
             backgroundColor: "hsla(0, 0%, 97%, 1.00)",
+
+            border: "1px solid #ccc", // Always show a light grey border
+            outline: "none", // Remove default browser outline on focus
+            boxShadow: "none", // Remove Bootstrap's blue glow on focus
           }}
         />
 
+        {/* Send Button */}
         <Button
           variant="primary"
           className="send-button"
@@ -1692,8 +1949,10 @@ function InputBox({ onSend }) {
         </Button>
       </InputGroup>
 
+      {/* Emoji Picker Dropdown */}
       {showEmojiPicker && (
         <div
+          ref={emojiRef}
           style={{
             position: "absolute",
             bottom: "60px",
@@ -1713,14 +1972,29 @@ function InputBox({ onSend }) {
 // ----------------------------------
 function Chat() {
   const [selectedChat, setSelectedChat] = useState("Meg Griffin");
+  const [darkMode, setDarkMode] = useState(() => {
+    // Load from localStorage when Chat mounts
+    return localStorage.getItem("darkMode") === "true";
+  });
+
+  useEffect(() => {
+    // Save changes to localStorage
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
   return (
     <>
       <style>{styles}</style>
-
-      <div className="app-container">
+      <div className={`app-container ${darkMode ? "dark" : ""}`}>
         {/* <Sidebar /> */}
-        <ChatList selectedChat={selectedChat} onSelectChat={setSelectedChat} />
-        <ChatWindow selectedChat={selectedChat} />
+        <ChatList
+          selectedChat={selectedChat}
+          onSelectChat={setSelectedChat}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
+        />
+
+        <ChatWindow selectedChat={selectedChat} darkMode={darkMode} />
       </div>
     </>
   );
