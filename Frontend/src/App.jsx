@@ -50,7 +50,7 @@ function App() {
           style={{
             width: "100%",
             backgroundColor: "#f8f9fa",
-            marginLeft: isMobile ? 0 : "20%",
+            marginLeft: isMobile ? 0 : "19.85%",
             minWidth: isMobile ? "100%" : "calc(80% - 250px)",
           }}
         >
